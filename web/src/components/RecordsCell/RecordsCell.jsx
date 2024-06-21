@@ -13,7 +13,7 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => (
   <div className="text-center mb-5 mt-5 text-light-400">
     <h1>
-      <i class="bi bi-arrow-down-circle mb-2 icon--large d-block"></i>
+      <i className="bi bi-arrow-down-circle mb-2 icon--large d-block"></i>
       No Records Yet
     </h1>
     <p className="lh-sm">Use the button below to add your cleanup record.</p>

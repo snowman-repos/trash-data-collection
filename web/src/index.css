@@ -28,3 +28,18 @@
   height: 100%;
   resize: none;
 }
+
+.feedback-form {
+  font-size: 2rem;
+}
+
+.feedback-form-button {
+  background: none;
+  border: none;
+  color: #98a2b3;
+  margin: 0;
+}
+
+.feedback-form:hover .feedback-form-button {
+  color: #7e55e4;
+}

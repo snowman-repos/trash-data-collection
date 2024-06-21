@@ -98,7 +98,7 @@ const RecordsAccordion = () => {
         href=""
         title="Download all data"
       >
-        <i class="bi bi-cloud-download me-2"></i>
+        <i className="bi bi-cloud-download me-2"></i>
         Download all data
       </a>
     </>
