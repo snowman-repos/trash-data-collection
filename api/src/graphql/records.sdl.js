@@ -4,7 +4,18 @@ export const schema = gql`
     date: String!
     group: String!
     location: String!
-    data: String!
+    numberOfVolunteers: Int
+    totalWeight: Float!
+    cans: Int
+    drums: Int
+    glass: Int
+    electronics: Int
+    footwear: Int
+    jerryCans: Int
+    plasticContainers: Int
+    plasticStraws: Int
+    smokingRelated: Int
+    other: String
   }
 
   type Query {
@@ -16,14 +27,36 @@ export const schema = gql`
     date: String!
     group: String
     location: String!
-    data: String!
+    numberOfVolunteers: Int
+    totalWeight: Float!
+    cans: Int
+    drums: Int
+    glass: Int
+    electronics: Int
+    footwear: Int
+    jerryCans: Int
+    plasticContainers: Int
+    plasticStraws: Int
+    smokingRelated: Int
+    other: String
   }
 
   input UpdateRecordInput {
     date: String
     group: String
     location: String
-    data: String
+    numberOfVolunteers: Int
+    totalWeight: Float
+    cans: Int
+    drums: Int
+    glass: Int
+    electronics: Int
+    footwear: Int
+    jerryCans: Int
+    plasticContainers: Int
+    plasticStraws: Int
+    smokingRelated: Int
+    other: String
   }
 
   type Mutation {

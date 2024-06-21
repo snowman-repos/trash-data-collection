@@ -6,6 +6,7 @@ import { Button } from '@govtechsg/sgds-react/Button'
 import { Form } from '@govtechsg/sgds-react/Form'
 import { DatePicker } from '@govtechsg/sgds-react/DatePicker'
 import { Dropdown } from '@govtechsg/sgds-react/Dropdown'
+import { QuantityToggle } from '@govtechsg/sgds-react/QuantityToggle'
 import { RecordContext } from 'src/context'
 
 import { groups } from 'src/cleanup-groups'
@@ -15,6 +16,7 @@ const AddNewRecordPage = () => {
   const [date, setDate] = useState(new Date())
   const [location, setLocation] = useState()
   const [group, setGroup] = useState()
+  const [numberOfVolunteers, setNumberOfVolunteers] = useState(0)
   const [locationInputDisabled, setLocationInputDisabled] = useState(true)
 
   const handleClick = () => {
@@ -22,6 +24,7 @@ const AddNewRecordPage = () => {
       date,
       location,
       group,
+      numberOfVolunteers,
     })
     navigate(routes.addData())
   }
@@ -103,6 +106,18 @@ const AddNewRecordPage = () => {
                     ))}
                   </Dropdown.Menu>
                 </Dropdown>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="numberOfVolunteers">
+                <Form.Label id="numberOfVolunteersLabel">
+                  Number of Volunteers
+                </Form.Label>
+                <QuantityToggle
+                  size="lg"
+                  variant="secondary"
+                  count={numberOfVolunteers}
+                  setCount={setNumberOfVolunteers}
+                  aria-describedby="numberOfVolunteersLabel"
+                />
               </Form.Group>
             </Form>
           </div>

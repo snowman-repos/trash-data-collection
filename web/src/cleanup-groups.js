@@ -1,4 +1,5 @@
 export const groups = [
+  'Not Applicable',
   'Blossom World Society',
   'Coastal Natives',
   'Conservation IG',

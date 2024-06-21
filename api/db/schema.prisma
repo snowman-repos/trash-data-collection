@@ -9,9 +9,20 @@ generator client {
 }
 
 model Record {
-  id        Int     @id @default(autoincrement())
-  date      String
-  group     String
-  location  String
-  data      String
+  id                  Int     @id @default(autoincrement())
+  date                String
+  group               String
+  location            String
+  numberOfVolunteers  Int
+  totalWeight         Float
+  cans                Int
+  drums               Int
+  glass               Int
+  electronics         Int
+  footwear            Int
+  jerryCans           Int
+  plasticContainers   Int
+  plasticStraws       Int
+  smokingRelated      Int
+  other               String
 }
