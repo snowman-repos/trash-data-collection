@@ -23,3 +23,8 @@
 .icon--large {
   font-size: 5rem;
 }
+
+.transcription-box {
+  height: 100%;
+  resize: none;
+}
