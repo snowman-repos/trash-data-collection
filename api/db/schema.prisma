@@ -26,3 +26,8 @@ model Record {
   smokingRelated      Int
   other               String
 }
+
+model TrashData {
+  id    Int @id @default(autoincrement())
+  data  String
+}

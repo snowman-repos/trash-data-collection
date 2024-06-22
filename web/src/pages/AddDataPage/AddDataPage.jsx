@@ -29,6 +29,20 @@ const AddDataPage = () => {
   const [transcription, setTranscription] = useState('')
   const [selectedFile, setSelectedFile] = useState({})
 
+  const setters = {
+    setTotalWeight,
+    setCans,
+    setDrums,
+    setElectronics,
+    setFootwear,
+    setGlass,
+    setJerryCans,
+    setOther,
+    setPlasticContainers,
+    setPlasticStraws,
+    setSmokingRelated,
+  }
+
   useEffect(() => {
     if (!recordContext) navigate(routes.addNewRecord())
   })
@@ -199,6 +213,7 @@ const AddDataPage = () => {
         show={transcriptionModalIsShown}
         toggleModal={setTranscriptionModalIsShown}
         transcription={transcription}
+        setters={setters}
       />
 
       <UploadModal
@@ -207,6 +222,7 @@ const AddDataPage = () => {
         toggleModal={setUploadModalIsShown}
         selectedFile={selectedFile}
         setSelectedFile={setSelectedFile}
+        setters={setters}
       />
     </>
   )

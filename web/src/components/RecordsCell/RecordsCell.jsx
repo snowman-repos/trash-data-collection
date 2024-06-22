@@ -8,7 +8,14 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => (
+  <div className="text-center mb-5 mt-5 text-light-400">
+    <h2>
+      <i className="bi bi-hourglass-split mb-2 icon--large d-block"></i>
+      Loading
+    </h2>
+  </div>
+)
 
 export const Empty = () => (
   <div className="text-center mb-5 mt-5 text-light-400">

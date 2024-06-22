@@ -2,16 +2,19 @@ import { Modal } from '@govtechsg/sgds-react/Modal'
 import { Button } from '@govtechsg/sgds-react/Button'
 import { Form } from '@govtechsg/sgds-react/Form'
 import { useState } from 'react'
+import TrashDataCell from 'src/components/TrashDataCell/TrashDataCell'
 
 const TranscriptionModal = ({
   show,
   onHide,
   setTranscription,
   transcription,
-  transcriptionModalIsShown,
   toggleModal,
+  setters,
 }) => {
   const [instructionsAreShown, setInstructionsAreShown] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState()
 
   return (
     <Modal show={show} onHide={onHide} fullscreen="xxl-down" scrollable={true}>
@@ -27,7 +30,7 @@ const TranscriptionModal = ({
         ></button>
       </Modal.Header>
       <Modal.Body>
-        {instructionsAreShown ? (
+        {instructionsAreShown && (
           <>
             <p>
               On the next screen, you can either write freestyle notes about the
@@ -44,7 +47,17 @@ const TranscriptionModal = ({
               alt="Keyboard with microphone key"
             />
           </>
-        ) : (
+        )}
+        {isLoading && (
+          <TrashDataCell
+            setIsLoading={setIsLoading}
+            setError={setError}
+            transcript={transcription}
+            setters={setters}
+            toggleModal={toggleModal}
+          />
+        )}
+        {!instructionsAreShown && !isLoading && (
           <Form.Control
             as="textarea"
             placeholder="Write or transcribe details about the trash data that you collect."
@@ -65,7 +78,13 @@ const TranscriptionModal = ({
             Next
           </Button>
         ) : (
-          <Button onClick={() => toggleModal(false)}>Done</Button>
+          <Button
+            disabled={isLoading}
+            aria-disabled={!isLoading ? 'false' : 'true'}
+            onClick={() => setIsLoading(true)}
+          >
+            {isLoading ? 'Analyzing…' : 'Done'}
+          </Button>
         )}
       </Modal.Footer>
     </Modal>
