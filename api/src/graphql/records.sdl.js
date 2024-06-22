@@ -21,6 +21,7 @@ export const schema = gql`
   type Query {
     records: [Record!]! @skipAuth
     record(id: Int!): Record @skipAuth
+    getLocation(lat: Float!, long: Float!): String @skipAuth
   }
 
   input CreateRecordInput {
