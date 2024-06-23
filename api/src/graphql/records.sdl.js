@@ -2,7 +2,7 @@ export const schema = gql`
   type Record {
     id: Int!
     date: String!
-    group: String!
+    group: String
     location: String!
     numberOfVolunteers: Int
     totalWeight: Float!

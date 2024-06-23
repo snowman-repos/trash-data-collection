@@ -52,3 +52,7 @@
   transform: translateX(-50%);
   max-width: 90%;
 }
+
+.other-input textarea {
+  height: 10rem;
+}

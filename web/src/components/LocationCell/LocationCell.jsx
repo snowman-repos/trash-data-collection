@@ -39,9 +39,16 @@ export const Empty = ({ location, setLocation }) => (
   />
 )
 
-export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error?.message}</div>
-)
+export const Failure = ({ error, location, setLocation }) => {
+  console.log(error)
+  return (
+    <LocationInput
+      disabled={false}
+      location={location}
+      setLocation={setLocation}
+    />
+  )
+}
 
 export const Success = ({ address, location, setLocation }) => {
   useEffect(() => {

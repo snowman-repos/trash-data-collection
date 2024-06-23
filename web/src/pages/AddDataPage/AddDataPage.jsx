@@ -1,5 +1,5 @@
 import { navigate, routes } from '@redwoodjs/router'
-import { Metadata } from '@redwoodjs/web'
+import { Metadata, useMutation } from '@redwoodjs/web'
 import { Container } from '@govtechsg/sgds-react/Container'
 import { RecordContext } from 'src/context'
 import { Button } from '@govtechsg/sgds-react/Button'
@@ -10,6 +10,14 @@ import { Toast } from '@govtechsg/sgds-react/Toast'
 import ItemCounter from 'src/components/ItemCounter/ItemCounter'
 import TranscriptionModal from 'src/components/TranscriptionModal/TranscriptionModal'
 import UploadModal from 'src/components/UploadModal/UploadModal'
+
+const CREATE_RECORD_MUTATION = gql`
+  mutation CreateRecordMutation($input: CreateRecordInput!) {
+    createRecord: createRecord(input: $input) {
+      id
+    }
+  }
+`
 
 const AddDataPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
@@ -31,8 +39,10 @@ const AddDataPage = () => {
   const [uploadModalIsShown, setUploadModalIsShown] = useState(false)
   const [transcription, setTranscription] = useState('')
   const [selectedFile, setSelectedFile] = useState({})
-  const [error, setError] = useState()
+  const [dataError, setDataError] = useState()
+  const [saveError, setSaveError] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const setters = {
     setTotalWeight,
@@ -48,7 +58,7 @@ const AddDataPage = () => {
     setPlasticStraws,
     setSmokingRelated,
     setTires,
-    setError,
+    setDataError,
   }
 
   useEffect(() => {
@@ -79,14 +89,30 @@ const AddDataPage = () => {
         navigator.clipboard.writeText(text)
         setCopied(true)
       } else {
-        setError('Access to your clipboard was denied')
+        setDataError('Access to your clipboard was denied')
       }
     })
   }
 
+  const [createRecord, { loading, error }] = useMutation(
+    CREATE_RECORD_MUTATION,
+    {
+      onCompleted: () => {
+        setIsLoading(false)
+        navigate(routes.thanks())
+      },
+      onError: (error) => {
+        setSaveError(true)
+        console.log(error)
+      },
+    }
+  )
+
   const handleSaveDataClick = () => {
+    setIsLoading(true)
+
     // submit to api
-    const payload = {
+    const input = {
       ...recordContext,
       totalWeight,
       cans,
@@ -104,9 +130,9 @@ const AddDataPage = () => {
 
     // if success, clear local storage
 
-    console.log(payload)
+    console.log(input)
 
-    // navigate(routes.thanks())
+    createRecord({ variables: { input } })
   }
 
   const handleTranscriptionModalClose = () => {}
@@ -234,7 +260,7 @@ const AddDataPage = () => {
             setCount={setTires}
           />
 
-          <div className="rounded mb-3 p-3 border">
+          <div className="rounded mb-3 p-3 border other-input">
             <Form.Label id="otherLabel">Other</Form.Label>
             <Form.Control
               as="textarea"
@@ -252,11 +278,17 @@ const AddDataPage = () => {
             title="Copy the data"
             onClick={handleCopyToClipboard}
           >
-            Copy to Clipboard
+            Copy All Data to Clipboard
           </a>
 
-          <Button className="mb-3" size="lg" onClick={handleSaveDataClick}>
-            Save Data
+          <Button
+            className="mb-3"
+            size="lg"
+            onClick={handleSaveDataClick}
+            disabled={isLoading}
+            aria-disabled={!isLoading ? 'false' : 'true'}
+          >
+            {isLoading ? 'Saving…' : 'Save Data'}
           </Button>
         </Form>
       </Container>
@@ -280,15 +312,15 @@ const AddDataPage = () => {
       />
 
       <Toast
-        onClose={() => setError()}
-        show={typeof error === 'string'}
+        onClose={() => setDataError()}
+        show={typeof dataError === 'string'}
         status="danger"
       >
         <Toast.Header>
           <i className="bi bi-exclamation-diamond me-2"></i>
           <strong className="me-auto">Something went wrong</strong>
         </Toast.Header>
-        <Toast.Body>{error}.</Toast.Body>
+        <Toast.Body>{dataError}.</Toast.Body>
       </Toast>
 
       <Toast
@@ -302,6 +334,19 @@ const AddDataPage = () => {
           <strong className="me-auto">Copied to clipboard!</strong>
         </Toast.Header>
       </Toast>
+
+      {/* <Toast
+        onClose={() => setSaveError(false)}
+        show={saveError}
+        status="danger"
+        autohide
+      >
+        <Toast.Header>
+          <i className="bi bi-exclamation-diamond me-2"></i>
+          <strong className="me-auto">Something went wrong</strong>
+        </Toast.Header>
+        <Toast.Body>{error}</Toast.Body>
+      </Toast> */}
     </>
   )
 }

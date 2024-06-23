@@ -10,7 +10,7 @@ const AddNewRecordPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
   const [date, setDate] = useState(new Date())
   const [location, setLocation] = useState()
-  const [group, setGroup] = useState()
+  const [group, setGroup] = useState('')
   const [numberOfVolunteers, setNumberOfVolunteers] = useState(0)
 
   const handleClick = () => {

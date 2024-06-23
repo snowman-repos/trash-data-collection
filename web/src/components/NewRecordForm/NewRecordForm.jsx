@@ -90,7 +90,7 @@ const NewRecordForm = ({
         <Form.Label>Cleanup Group</Form.Label>
         <Dropdown>
           <Dropdown.Toggle>
-            {group ? group : 'Select Group'}
+            {group !== '' ? group : 'Select Group'}
             <i className="bi bi-chevron-down"></i>
           </Dropdown.Toggle>
           <Dropdown.Menu>
