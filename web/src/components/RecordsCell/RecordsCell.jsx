@@ -4,6 +4,22 @@ export const QUERY = gql`
   query RecordsQuery {
     records {
       id
+      date
+      group
+      location
+      numberOfVolunteers
+      totalWeight
+      cans
+      drums
+      glass
+      electronics
+      footwear
+      jerryCans
+      plasticContainers
+      plasticStraws
+      smokingRelated
+      tires
+      other
     }
   }
 `
