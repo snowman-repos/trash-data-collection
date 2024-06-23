@@ -15,6 +15,7 @@ export const schema = gql`
     plasticContainers: Int
     plasticStraws: Int
     smokingRelated: Int
+    tires: Int
     other: String
   }
 
@@ -39,6 +40,7 @@ export const schema = gql`
     plasticContainers: Int
     plasticStraws: Int
     smokingRelated: Int
+    tires: Int
     other: String
   }
 
@@ -57,6 +59,7 @@ export const schema = gql`
     plasticContainers: Int
     plasticStraws: Int
     smokingRelated: Int
+    tires: Int
     other: String
   }
 

@@ -24,6 +24,7 @@ model Record {
   plasticContainers   Int
   plasticStraws       Int
   smokingRelated      Int
+  tires               Int
   other               String
 }
 

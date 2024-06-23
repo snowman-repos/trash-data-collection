@@ -32,7 +32,7 @@ Please adhere to these instructions:
     plasticContainers: (e.g. "plastic bottles", "containers", "plastics", "plastic bottles", "plastic containers", "plastic"),
     plasticStraws: (e.g. "straws", "plastic straws"),
     glassContainers: (e.g. "glass", "glass bottles", "glass container"),
-    metalCans: (e.g. "cans", "metal cans", "soda cans", "drink cans"),
+    metalCans: (e.g. "cans", "metal cans", "soda cans", "drink cans", "aluminium cans", "spray cans"),
     footwear: (e.g. "shoes", "slippers", "footwear", "trainers", "sneakers", "high-heels"),
     smokingRelated: (e.g. "lighters", "lighter", "cigarette lighter", "cigarette buts", "vapes", "vape stick"),
     jerryCans: (this will always be described as "jerry can"),

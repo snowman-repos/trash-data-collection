@@ -23,6 +23,7 @@ const AddDataPage = () => {
   const [plasticContainers, setPlasticContainers] = useState(0)
   const [plasticStraws, setPlasticStraws] = useState(0)
   const [smokingRelated, setSmokingRelated] = useState(0)
+  const [tires, setTires] = useState(0)
   const [other, setOther] = useState('')
   const [transcriptionModalIsShown, setTranscriptionModalIsShown] =
     useState(false)
@@ -43,6 +44,7 @@ const AddDataPage = () => {
     setPlasticContainers,
     setPlasticStraws,
     setSmokingRelated,
+    setTires,
     setError,
   }
 
@@ -64,6 +66,7 @@ const AddDataPage = () => {
       plasticContainers,
       plasticStraws,
       smokingRelated,
+      tires,
       other,
     }
 
@@ -71,7 +74,7 @@ const AddDataPage = () => {
 
     console.log(payload)
 
-    navigate(routes.thanks())
+    // navigate(routes.thanks())
   }
 
   const handleTranscriptionModalClose = () => {}
@@ -190,6 +193,13 @@ const AddDataPage = () => {
             helperText="e.g. cigarette lighters, cigarette buts"
             count={smokingRelated}
             setCount={setSmokingRelated}
+          />
+
+          <ItemCounter
+            id="tiresLabel"
+            label="Tires"
+            count={tires}
+            setCount={setTires}
           />
 
           <div className="rounded mb-3 p-3 border">

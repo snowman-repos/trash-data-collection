@@ -48,6 +48,7 @@ const getProcessedData = ({ data }) => {
     plasticContainers: getIntegerValue('plasticContainers'),
     plasticStraws: getIntegerValue('plasticStraws'),
     smokingRelated: getIntegerValue('smokingRelated'),
+    tires: getIntegerValue('tires'),
   }
 }
 
@@ -91,6 +92,7 @@ export const Success = ({ trashData, setIsLoading, toggleModal, setters }) => {
     setters.setPlasticContainers(data.plasticContainers)
     setters.setPlasticStraws(data.plasticStraws)
     setters.setSmokingRelated(data.smokingRelated)
+    setters.setTires(data.tires)
     setIsLoading(false)
     toggleModal(false)
   })
