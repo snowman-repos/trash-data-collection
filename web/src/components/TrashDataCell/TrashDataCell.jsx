@@ -82,6 +82,7 @@ export const Success = ({ trashData, setIsLoading, toggleModal, setters }) => {
   console.log(data)
   useEffect(() => {
     setters.setTotalWeight(data.totalWeight)
+    setters.trashBagsUsed(data.numberOfTrashBagsUsed)
     setters.setCans(data.cans)
     setters.setDrums(data.drums)
     setters.setElectronics(data.electronics)

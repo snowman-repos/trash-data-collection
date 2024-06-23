@@ -14,6 +14,7 @@ import UploadModal from 'src/components/UploadModal/UploadModal'
 const AddDataPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
   const [totalWeight, setTotalWeight] = useState(0)
+  const [trashBagsUsed, setTrashBagsUsed] = useState(0)
   const [cans, setCans] = useState(0)
   const [drums, setDrums] = useState(0)
   const [glass, setGlass] = useState(0)
@@ -31,9 +32,11 @@ const AddDataPage = () => {
   const [transcription, setTranscription] = useState('')
   const [selectedFile, setSelectedFile] = useState({})
   const [error, setError] = useState()
+  const [copied, setCopied] = useState(false)
 
   const setters = {
     setTotalWeight,
+    setTrashBagsUsed,
     setCans,
     setDrums,
     setElectronics,
@@ -51,6 +54,35 @@ const AddDataPage = () => {
   useEffect(() => {
     if (!recordContext) navigate(routes.addNewRecord())
   })
+
+  const handleCopyToClipboard = (e) => {
+    e.preventDefault()
+
+    const text = `
+      Total Weight: ${totalWeight + 'kg'}
+      Number of Trash Bags Used: ${trashBagsUsed}
+      Electronics: ${electronics}
+      Footwear: ${footwear}
+      Glass: ${glass}
+      Jerry Cans: ${jerryCans}
+      Large Drums: ${drums}
+      Metal Cans: ${cans}
+      Plastic Containers: ${plasticContainers}
+      Plastic Straws: ${plasticStraws}
+      Smoking Related: ${smokingRelated}
+      Tires: ${tires}
+      Other: ${other}
+    `
+
+    navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
+      if (result.state === 'granted' || result.state === 'prompt') {
+        navigator.clipboard.writeText(text)
+        setCopied(true)
+      } else {
+        setError('Access to your clipboard was denied')
+      }
+    })
+  }
 
   const handleSaveDataClick = () => {
     // submit to api
@@ -214,6 +246,15 @@ const AddDataPage = () => {
             />
           </div>
 
+          <a
+            className="mb-3 d-block"
+            href="#"
+            title="Copy the data"
+            onClick={handleCopyToClipboard}
+          >
+            Copy to Clipboard
+          </a>
+
           <Button className="mb-3" size="lg" onClick={handleSaveDataClick}>
             Save Data
           </Button>
@@ -248,6 +289,18 @@ const AddDataPage = () => {
           <strong className="me-auto">Something went wrong</strong>
         </Toast.Header>
         <Toast.Body>{error}.</Toast.Body>
+      </Toast>
+
+      <Toast
+        onClose={() => setCopied(false)}
+        show={copied}
+        status="success"
+        autohide
+      >
+        <Toast.Header>
+          <i className="bi bi-check-circle me-2"></i>
+          <strong className="me-auto">Copied to clipboard!</strong>
+        </Toast.Header>
       </Toast>
     </>
   )
