@@ -14,7 +14,6 @@ const TranscriptionModal = ({
 }) => {
   const [instructionsAreShown, setInstructionsAreShown] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState()
 
   return (
     <Modal show={show} onHide={onHide} fullscreen="xxl-down" scrollable={true}>
@@ -51,7 +50,6 @@ const TranscriptionModal = ({
         {isLoading && (
           <TrashDataCell
             setIsLoading={setIsLoading}
-            setError={setError}
             transcript={transcription}
             setters={setters}
             toggleModal={toggleModal}

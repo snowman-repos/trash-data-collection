@@ -6,6 +6,7 @@ import { Button } from '@govtechsg/sgds-react/Button'
 import { Form } from '@govtechsg/sgds-react/Form'
 import { useContext, useEffect, useState } from 'react'
 import { QuantityToggle } from '@govtechsg/sgds-react/QuantityToggle'
+import { Toast } from '@govtechsg/sgds-react/Toast'
 import ItemCounter from 'src/components/ItemCounter/ItemCounter'
 import TranscriptionModal from 'src/components/TranscriptionModal/TranscriptionModal'
 import UploadModal from 'src/components/UploadModal/UploadModal'
@@ -28,6 +29,7 @@ const AddDataPage = () => {
   const [uploadModalIsShown, setUploadModalIsShown] = useState(false)
   const [transcription, setTranscription] = useState('')
   const [selectedFile, setSelectedFile] = useState({})
+  const [error, setError] = useState()
 
   const setters = {
     setTotalWeight,
@@ -41,6 +43,7 @@ const AddDataPage = () => {
     setPlasticContainers,
     setPlasticStraws,
     setSmokingRelated,
+    setError,
   }
 
   useEffect(() => {
@@ -224,6 +227,18 @@ const AddDataPage = () => {
         setSelectedFile={setSelectedFile}
         setters={setters}
       />
+
+      <Toast
+        onClose={() => setError()}
+        show={typeof error === 'string'}
+        status="danger"
+      >
+        <Toast.Header>
+          <i className="bi bi-exclamation-diamond me-2"></i>
+          <strong className="me-auto">Something went wrong</strong>
+        </Toast.Header>
+        <Toast.Body>{error}.</Toast.Body>
+      </Toast>
     </>
   )
 }

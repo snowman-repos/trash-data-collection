@@ -43,3 +43,12 @@
 .feedback-form:hover .feedback-form-button {
   color: #7e55e4;
 }
+
+.toast {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  z-index: 1000;
+  transform: translateX(-50%);
+  max-width: 90%;
+}

@@ -67,9 +67,9 @@ export const Empty = ({ setIsLoading }) => {
   return <></>
 }
 
-export const Failure = ({ error, setError, setIsLoading }) => {
+export const Failure = ({ error, setters, setIsLoading }) => {
   useEffect(() => {
-    setError(error)
+    setters.setError(error)
     setIsLoading(false)
   })
   return <p style={{ color: '#FB7463' }}>Error: {error?.message}</p>
