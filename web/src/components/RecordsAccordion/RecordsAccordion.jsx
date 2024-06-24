@@ -9,13 +9,20 @@ import DataTable from 'src/components/DataTable/DataTable'
 const RecordsAccordion = ({ records }) => {
   return (
     <>
-      <Accordion className="trash-data">
+      <Accordion>
         {records.map((record) => (
           <AccordionItem eventKey={record.id.toString()} key={record.id}>
             <AccordionHeader>
-              <span>{new Date(record.date).toLocaleDateString('en-SG')}</span>
-              <span>{record.group}</span>
-              <span>{record.totalWeight + 'kg'}</span>
+              <span>
+                <span className="fw-bold">
+                  {new Date(record.date).toLocaleDateString('en-SG')}
+                </span>
+                <br />
+                <span>{record.group}</span>
+              </span>
+              <span className="text-center fw-bold fs-4">
+                {record.totalWeight + 'kg'}
+              </span>
             </AccordionHeader>
             <AccordionBody>
               <DataTable record={record} />

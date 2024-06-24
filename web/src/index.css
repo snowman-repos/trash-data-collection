@@ -1,23 +1,8 @@
 @import url('https://designsystem.gov.sg/css/sgds.css');
 @import '../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
-.trash-data * {
-  font-size: 0.75rem !important;
-}
-
-.accordion-button span {
-  width: 30%;
-  line-height: 1;
-}
-
-.accordion-button span:nth-of-type(1) {
-  font-weight: bold;
-  font-size: 0.85rem;
-}
-
-.accordion-button span:nth-of-type(2),
-.accordion-button span:nth-of-type(3) {
-  text-align: center;
+.accordion-button > span {
+  width: 50%;
 }
 
 .icon--large {
