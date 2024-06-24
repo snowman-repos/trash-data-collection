@@ -1,6 +1,7 @@
 import { Modal } from '@govtechsg/sgds-react/Modal'
 import { Button } from '@govtechsg/sgds-react/Button'
 import { FileUpload } from '@govtechsg/sgds-react/FileUpload'
+import readXlsxFile from 'read-excel-file'
 
 const UploadModal = ({
   show,
@@ -8,10 +9,29 @@ const UploadModal = ({
   toggleModal,
   selectedFile,
   setSelectedFile,
+  setters,
 }) => {
   const onChangeFile = (data) => {
     setSelectedFile(data)
-    console.log(data)
+    try {
+      readXlsxFile(data[0]).then((rows) => {
+        setters.setTotalWeight(rows[9][1])
+        setters.setTrashBagsUsed(rows[10][1])
+        setters.setCans(rows[11][1])
+        setters.setDrums(rows[12][1])
+        setters.setElectronics(rows[13][1])
+        setters.setFootwear(rows[14][1])
+        setters.setGlass(rows[15][1])
+        setters.setJerryCans(rows[16][1])
+        setters.setOther(rows[21][1])
+        setters.setPlasticContainers(rows[17][1])
+        setters.setPlasticStraws(rows[18][1])
+        setters.setSmokingRelated(rows[19][1])
+        setters.setTires(rows[20][1])
+      })
+    } catch (error) {
+      setters.setDataError(error)
+    }
   }
 
   return (
@@ -29,13 +49,13 @@ const UploadModal = ({
         ></button>
       </Modal.Header>
       <Modal.Body>
-        <p className="fw-bold">Upload a .xlsx or .csv file</p>
+        <p className="fw-bold">Upload a .xlsx file</p>
         <FileUpload
           controlId="fileupload"
           onChangeFile={onChangeFile}
           selectedFile={selectedFile}
           variant="secondary"
-          accept=".csv,.xlsx"
+          accept=".xlsx"
         >
           <i className="bi bi-upload me-2"></i>Choose a file
         </FileUpload>

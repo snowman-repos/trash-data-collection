@@ -19,7 +19,9 @@
     "bootstrap-icons": "^1.11.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-speech-recognition": "^3.10.0"
+    "react-speech-recognition": "^3.10.0",
+    "read-excel-file": "^5.8.3",
+    "write-excel-file": "^2.0.2"
   },
   "devDependencies": {
     "@redwoodjs/vite": "7.7.1",
