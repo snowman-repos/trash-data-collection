@@ -3,6 +3,7 @@ import { Button } from '@govtechsg/sgds-react/Button'
 import { Form } from '@govtechsg/sgds-react/Form'
 import { useState } from 'react'
 import TrashDataCell from 'src/components/TrashDataCell/TrashDataCell'
+import TranscribeAudio from 'src/components/TranscribeAudio/TranscribeAudio'
 
 const TranscriptionModal = ({
   show,
@@ -76,13 +77,21 @@ const TranscriptionModal = ({
             Next
           </Button>
         ) : (
-          <Button
-            disabled={isLoading}
-            aria-disabled={!isLoading ? 'false' : 'true'}
-            onClick={() => setIsLoading(true)}
-          >
-            {isLoading ? 'Analyzing…' : 'Done'}
-          </Button>
+          <div className="d-flex w-100">
+            <TranscribeAudio
+              transcription={transcription}
+              setTranscription={setTranscription}
+              isLoading={isLoading}
+            />
+            <Button
+              disabled={isLoading}
+              className="flex-sm-grow-1"
+              aria-disabled={!isLoading ? 'false' : 'true'}
+              onClick={() => setIsLoading(true)}
+            >
+              {isLoading ? 'Analyzing…' : 'Done'}
+            </Button>
+          </div>
         )}
       </Modal.Footer>
     </Modal>

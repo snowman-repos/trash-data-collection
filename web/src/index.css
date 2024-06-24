@@ -56,3 +56,9 @@
 .other-input textarea {
   height: 10rem;
 }
+
+.btn-outline-dark:active,
+.btn-outline-dark:hover,
+.btn-outline-dark:focus {
+  color: #5925dc;
+}
