@@ -58,7 +58,7 @@ const NewRecordForm = ({
         <Form.Label>Cleanup Date</Form.Label>
         <DatePicker
           required={true}
-          maxDate={date.toString()}
+          maxDate={new Date().toString()}
           onChangeDate={(date) => {
             setDate(date)
             updateLocalStorage({
