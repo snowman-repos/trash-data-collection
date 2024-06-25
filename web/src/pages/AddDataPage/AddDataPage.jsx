@@ -404,19 +404,6 @@ const AddDataPage = () => {
           <strong className="me-auto">Copied to clipboard!</strong>
         </Toast.Header>
       </Toast>
-
-      {/* <Toast
-        onClose={() => setSaveError(false)}
-        show={saveError}
-        status="danger"
-        autohide
-      >
-        <Toast.Header>
-          <i className="bi bi-exclamation-diamond me-2"></i>
-          <strong className="me-auto">Something went wrong</strong>
-        </Toast.Header>
-        <Toast.Body>{error}</Toast.Body>
-      </Toast> */}
     </>
   )
 }

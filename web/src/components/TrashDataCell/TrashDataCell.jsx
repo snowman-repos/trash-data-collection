@@ -1,5 +1,6 @@
 import { get } from '@redwoodjs/forms'
 import { useEffect } from 'react'
+import mixpanel from 'mixpanel-browser'
 
 export const QUERY = gql`
   query TrashDataQuery($transcript: String!) {
@@ -96,6 +97,12 @@ export const Success = ({ trashData, setIsLoading, toggleModal, setters }) => {
     setters.setTires(data.tires)
     setIsLoading(false)
     toggleModal(false)
+
+    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+      debug: true,
+      persistence: 'localStorage',
+    })
+    mixpanel.track('Data Saved')
   })
   return <></>
 }

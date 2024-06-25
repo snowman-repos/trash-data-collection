@@ -3,11 +3,21 @@ import { Metadata } from '@redwoodjs/web'
 import { Container } from '@govtechsg/sgds-react/Container'
 import { Button } from '@govtechsg/sgds-react/Button'
 import RecordsCell from 'src/components/RecordsCell/RecordsCell'
+import { useEffect } from 'react'
+import mixpanel from 'mixpanel-browser'
 
 const HomePage = () => {
   const handleClick = () => {
     navigate(routes.addNewRecord())
   }
+
+  useEffect(() => {
+    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+      debug: true,
+      track_pageview: '/',
+      persistence: 'localStorage',
+    })
+  })
   return (
     <>
       <Metadata

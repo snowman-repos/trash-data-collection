@@ -2,22 +2,33 @@ import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { Container } from '@govtechsg/sgds-react/Container'
 import { Button } from '@govtechsg/sgds-react/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import mixpanel from 'mixpanel-browser'
 
 const ThanksPage = () => {
   const [feedbackGiven, setFeedbackGiven] = useState(false)
   const [hoverValue, setHoverValue] = useState(0)
   const [feedbackValue, setFeedbackValue] = useState(0)
 
+  useEffect(() => {
+    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+      debug: true,
+      persistence: 'localStorage',
+    })
+  })
+
   const saveFeedback = (value) => {
     setFeedbackValue(value)
     setFeedbackGiven(true)
+    mixpanel.track('Feedback', {
+      score: value,
+    })
   }
 
   return (
     <>
       <Metadata
-        title="Data Saved"
+        title="Data Saved!"
         description="Your trash collection data has been saved"
       />
 

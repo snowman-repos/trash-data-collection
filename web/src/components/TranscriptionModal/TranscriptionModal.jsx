@@ -1,9 +1,10 @@
 import { Modal } from '@govtechsg/sgds-react/Modal'
 import { Button } from '@govtechsg/sgds-react/Button'
 import { Form } from '@govtechsg/sgds-react/Form'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import TrashDataCell from 'src/components/TrashDataCell/TrashDataCell'
 import TranscribeAudio from 'src/components/TranscribeAudio/TranscribeAudio'
+import mixpanel from 'mixpanel-browser'
 
 const TranscriptionModal = ({
   show,
@@ -15,6 +16,13 @@ const TranscriptionModal = ({
 }) => {
   const [instructionsAreShown, setInstructionsAreShown] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+      debug: true,
+      persistence: 'localStorage',
+    })
+  })
 
   return (
     <Modal show={show} onHide={onHide} fullscreen="xxl-down" scrollable={true}>
@@ -87,7 +95,10 @@ const TranscriptionModal = ({
               disabled={isLoading}
               className="flex-sm-grow-1"
               aria-disabled={!isLoading ? 'false' : 'true'}
-              onClick={() => setIsLoading(true)}
+              onClick={() => {
+                setIsLoading(true)
+                mixpanel.track('Transcribed')
+              }}
             >
               {isLoading ? 'Analyzing…' : 'Done'}
             </Button>

@@ -1,4 +1,5 @@
 import writeXlsxFile from 'write-excel-file'
+import { useEffect } from 'react'
 import {
   Accordion,
   AccordionItem,
@@ -6,6 +7,7 @@ import {
   AccordionBody,
 } from '@govtechsg/sgds-react/Accordion'
 import DataTable from 'src/components/DataTable/DataTable'
+import mixpanel from 'mixpanel-browser'
 
 const getData = (records) => {
   let data = []
@@ -246,6 +248,13 @@ const getData = (records) => {
 }
 
 const RecordsAccordion = ({ records }) => {
+  useEffect(() => {
+    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+      debug: true,
+      persistence: 'localStorage',
+    })
+  })
+
   const downloadExcel = async (e) => {
     e.preventDefault()
     let date = new Date()
@@ -255,6 +264,7 @@ const RecordsAccordion = ({ records }) => {
         .replace(/\//g, '-')
         .replace(/,/, '')}.xlsx`,
     })
+    mixpanel.track('Downloaded')
   }
   return (
     <>

@@ -1,7 +1,9 @@
 import { Modal } from '@govtechsg/sgds-react/Modal'
 import { Button } from '@govtechsg/sgds-react/Button'
 import { FileUpload } from '@govtechsg/sgds-react/FileUpload'
+import { useEffect } from 'react'
 import readXlsxFile from 'read-excel-file'
+import mixpanel from 'mixpanel-browser'
 
 const UploadModal = ({
   show,
@@ -11,6 +13,13 @@ const UploadModal = ({
   setSelectedFile,
   setters,
 }) => {
+  useEffect(() => {
+    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+      debug: true,
+      persistence: 'localStorage',
+    })
+  })
+
   const onChangeFile = (data) => {
     setSelectedFile(data)
     try {
@@ -77,7 +86,14 @@ const UploadModal = ({
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => toggleModal(false)}>Done</Button>
+        <Button
+          onClick={() => {
+            toggleModal(false)
+            mixpanel.track('Uploaded')
+          }}
+        >
+          Done
+        </Button>
       </Modal.Footer>
     </Modal>
   )
