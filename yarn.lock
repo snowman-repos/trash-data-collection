@@ -18532,7 +18532,6 @@ __metadata:
     "@redwoodjs/core": "npm:7.7.1"
     "@redwoodjs/project-config": "npm:7.7.1"
     openai: "npm:^4.52.0"
-    regenerator-runtime: "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
@@ -21131,6 +21130,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-speech-recognition: "npm:^3.10.0"
     read-excel-file: "npm:^5.8.3"
+    regenerator-runtime: "npm:^0.14.1"
     write-excel-file: "npm:^2.0.2"
   languageName: unknown
   linkType: soft
