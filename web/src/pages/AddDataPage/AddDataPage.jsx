@@ -21,23 +21,47 @@ const CREATE_RECORD_MUTATION = gql`
 
 const AddDataPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
-  const [totalWeight, setTotalWeight] = useState(0)
-  const [trashBagsUsed, setTrashBagsUsed] = useState(0)
-  const [cans, setCans] = useState(0)
-  const [drums, setDrums] = useState(0)
-  const [glass, setGlass] = useState(0)
-  const [electronics, setElectronics] = useState(0)
-  const [footwear, setFootwear] = useState(0)
-  const [jerryCans, setJerryCans] = useState(0)
-  const [plasticContainers, setPlasticContainers] = useState(0)
-  const [plasticStraws, setPlasticStraws] = useState(0)
-  const [smokingRelated, setSmokingRelated] = useState(0)
-  const [tires, setTires] = useState(0)
-  const [other, setOther] = useState('')
+  const [totalWeight, setTotalWeight] = useState(
+    parseInt(localStorage.getItem('totalWeight')) || 0
+  )
+  const [trashBagsUsed, setTrashBagsUsed] = useState(
+    parseInt(localStorage.getItem('trashBagsUsed')) || 0
+  )
+  const [cans, setCans] = useState(parseInt(localStorage.getItem('cans')) || 0)
+  const [drums, setDrums] = useState(
+    parseInt(localStorage.getItem('drums')) || 0
+  )
+  const [glass, setGlass] = useState(
+    parseInt(localStorage.getItem('glass')) || 0
+  )
+  const [electronics, setElectronics] = useState(
+    parseInt(localStorage.getItem('electronics')) || 0
+  )
+  const [footwear, setFootwear] = useState(
+    parseInt(localStorage.getItem('footwear')) || 0
+  )
+  const [jerryCans, setJerryCans] = useState(
+    parseInt(localStorage.getItem('jerryCans')) || 0
+  )
+  const [plasticContainers, setPlasticContainers] = useState(
+    parseInt(localStorage.getItem('plasticContainers')) || 0
+  )
+  const [plasticStraws, setPlasticStraws] = useState(
+    parseInt(localStorage.getItem('plasticStraws')) || 0
+  )
+  const [smokingRelated, setSmokingRelated] = useState(
+    parseInt(localStorage.getItem('smokingRelated')) || 0
+  )
+  const [tires, setTires] = useState(
+    parseInt(localStorage.getItem('tires')) || 0
+  )
+  const [other, setOther] = useState(localStorage.getItem('other') || '')
   const [transcriptionModalIsShown, setTranscriptionModalIsShown] =
     useState(false)
   const [uploadModalIsShown, setUploadModalIsShown] = useState(false)
-  const [transcription, setTranscription] = useState('')
+  const [transcription, setTranscription] = useState(
+    localStorage.getItem('transcription') || ''
+  )
   const [selectedFile, setSelectedFile] = useState({})
   const [dataError, setDataError] = useState()
   const [saveError, setSaveError] = useState(false)
@@ -61,8 +85,34 @@ const AddDataPage = () => {
     setDataError,
   }
 
+  const updateLocalStorage = ({ property, value }) => {
+    localStorage.setItem(property, value)
+  }
+
   useEffect(() => {
     if (!recordContext) navigate(routes.addNewRecord())
+
+    const interval = setInterval(() => {
+      updateLocalStorage({ property: 'totalWeight', value: totalWeight })
+      updateLocalStorage({ property: 'trashBagsUsed', value: trashBagsUsed })
+      updateLocalStorage({ property: 'cans', value: cans })
+      updateLocalStorage({ property: 'drums', value: drums })
+      updateLocalStorage({ property: 'electronics', value: electronics })
+      updateLocalStorage({ property: 'footwear', value: footwear })
+      updateLocalStorage({ property: 'glass', value: glass })
+      updateLocalStorage({ property: 'jerryCans', value: jerryCans })
+      updateLocalStorage({ property: 'other', value: other })
+      updateLocalStorage({
+        property: 'plasticContainers',
+        value: plasticContainers,
+      })
+      updateLocalStorage({ property: 'plasticStraws', value: plasticStraws })
+      updateLocalStorage({ property: 'smokingRelated', value: smokingRelated })
+      updateLocalStorage({ property: 'tires', value: tires })
+      updateLocalStorage({ property: 'selectedFile', value: selectedFile })
+      updateLocalStorage({ property: 'transcription', value: transcription })
+    }, 1000)
+    return () => clearInterval(interval)
   })
 
   const handleCopyToClipboard = (e) => {
@@ -99,6 +149,27 @@ const AddDataPage = () => {
     {
       onCompleted: () => {
         setIsLoading(false)
+        // clear local storage
+        localStorage.removeItem('date')
+        localStorage.removeItem('location')
+        localStorage.removeItem('group')
+        localStorage.removeItem('numberOfVolunteers')
+        localStorage.removeItem('totalWeight')
+        localStorage.removeItem('trashBagsUsed')
+        localStorage.removeItem('cans')
+        localStorage.removeItem('drums')
+        localStorage.removeItem('electronics')
+        localStorage.removeItem('footwear')
+        localStorage.removeItem('glass')
+        localStorage.removeItem('jerryCans')
+        localStorage.removeItem('other')
+        localStorage.removeItem('plasticContainers')
+        localStorage.removeItem('plasticStraws')
+        localStorage.removeItem('smokingRelated')
+        localStorage.removeItem('tires')
+        localStorage.removeItem('selectedFile')
+        localStorage.removeItem('transcription')
+
         navigate(routes.thanks())
       },
       onError: (error) => {
@@ -128,8 +199,6 @@ const AddDataPage = () => {
       tires,
       other,
     }
-
-    // if success, clear local storage
 
     console.log(input)
 

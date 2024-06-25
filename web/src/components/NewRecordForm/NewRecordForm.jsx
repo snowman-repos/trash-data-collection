@@ -20,6 +20,10 @@ const NewRecordForm = ({
   const [geolocation, setGeolocation] = useState()
   const [permissionRequested, setPermissionRequested] = useState(false)
 
+  const updateLocalStorage = ({ property, value }) => {
+    localStorage.setItem(property, value)
+  }
+
   useEffect(() => {
     if ('geolocation' in navigator && !geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -39,6 +43,13 @@ const NewRecordForm = ({
         }
       )
     }
+    const interval = setInterval(() => {
+      updateLocalStorage({
+        property: 'numberOfVolunteers',
+        value: numberOfVolunteers,
+      })
+    }, 1000)
+    return () => clearInterval(interval)
   })
 
   return (
@@ -50,8 +61,13 @@ const NewRecordForm = ({
           maxDate={date.toString()}
           onChangeDate={(date) => {
             setDate(date)
+            updateLocalStorage({
+              property: 'date',
+              value: date,
+            })
           }}
           initialValue={date}
+          displayDate={date}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="cleanupLocation">
@@ -64,6 +80,10 @@ const NewRecordForm = ({
             disabled
             onChange={(e) => {
               setLocation(e.target.value)
+              updateLocalStorage({
+                property: 'location',
+                value: e.target.value,
+              })
             }}
           />
         )}
@@ -74,6 +94,10 @@ const NewRecordForm = ({
             defaultValue={location}
             onChange={(e) => {
               setLocation(e.target.value)
+              updateLocalStorage({
+                property: 'location',
+                value: e.target.value,
+              })
             }}
           />
         )}
@@ -83,6 +107,7 @@ const NewRecordForm = ({
             long={geolocation.long}
             location={location}
             setLocation={setLocation}
+            updateLocalStorage={updateLocalStorage}
           />
         )}
       </Form.Group>
@@ -98,6 +123,10 @@ const NewRecordForm = ({
               <Dropdown.Item
                 onClick={(e) => {
                   setGroup(e.target.text)
+                  updateLocalStorage({
+                    property: 'group',
+                    value: e.target.text,
+                  })
                 }}
                 key={index}
               >
@@ -116,6 +145,9 @@ const NewRecordForm = ({
           variant="secondary"
           count={numberOfVolunteers}
           setCount={setNumberOfVolunteers}
+          onChange={(e) => {
+            console.log(e)
+          }}
           aria-describedby="numberOfVolunteersLabel"
         />
       </Form.Group>

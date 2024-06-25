@@ -8,10 +8,16 @@ import NewRecordForm from 'src/components/NewRecordForm/NewRecordForm'
 
 const AddNewRecordPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
-  const [date, setDate] = useState(new Date())
-  const [location, setLocation] = useState()
-  const [group, setGroup] = useState('')
-  const [numberOfVolunteers, setNumberOfVolunteers] = useState(0)
+  const [date, setDate] = useState(
+    new Date(localStorage.getItem('date')) || new Date()
+  )
+  const [location, setLocation] = useState(
+    localStorage.getItem('location') || ''
+  )
+  const [group, setGroup] = useState(localStorage.getItem('group') || '')
+  const [numberOfVolunteers, setNumberOfVolunteers] = useState(
+    parseInt(localStorage.getItem('numberOfVolunteers')) || 0
+  )
 
   const handleClick = () => {
     setRecordContext({
