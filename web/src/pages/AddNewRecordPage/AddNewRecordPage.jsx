@@ -9,7 +9,9 @@ import NewRecordForm from 'src/components/NewRecordForm/NewRecordForm'
 const AddNewRecordPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
   const [date, setDate] = useState(
-    new Date(localStorage.getItem('date')) || new Date()
+    localStorage.getItem('date') == null
+      ? new Date()
+      : new Date(localStorage.getItem('date'))
   )
   const [location, setLocation] = useState(
     localStorage.getItem('location') || ''
