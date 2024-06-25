@@ -115,6 +115,7 @@ const AddDataPage = () => {
     const input = {
       ...recordContext,
       totalWeight,
+      trashBagsUsed,
       cans,
       drums,
       glass,

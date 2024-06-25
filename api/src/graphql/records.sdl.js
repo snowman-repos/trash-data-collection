@@ -6,6 +6,7 @@ export const schema = gql`
     location: String!
     numberOfVolunteers: Int
     totalWeight: Float!
+    trashBagsUsed: Int
     cans: Int
     drums: Int
     glass: Int
@@ -31,6 +32,7 @@ export const schema = gql`
     location: String!
     numberOfVolunteers: Int
     totalWeight: Float!
+    trashBagsUsed: Int
     cans: Int
     drums: Int
     glass: Int
@@ -50,6 +52,7 @@ export const schema = gql`
     location: String
     numberOfVolunteers: Int
     totalWeight: Float
+    trashBagsUsed: Int
     cans: Int
     drums: Int
     glass: Int

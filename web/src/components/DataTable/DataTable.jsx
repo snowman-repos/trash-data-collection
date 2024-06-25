@@ -20,10 +20,16 @@ const DataTable = ({ record }) => {
         </TableRow>
         {record.numberOfVolunteers !== 0 && (
           <TableRow>
-            <TableHeaderCell>Trash per Volunteer</TableHeaderCell>
+            <TableHeaderCell>Trash per Volunteer (kg)</TableHeaderCell>
             <TableDataCell>
-              {record.totalWeight / record.numberOfVolunteers}
+              {(record.totalWeight / record.numberOfVolunteers).toFixed(2)}
             </TableDataCell>
+          </TableRow>
+        )}
+        {record.trashBagsUsed !== 0 && (
+          <TableRow>
+            <TableHeaderCell>Trash Bags Used</TableHeaderCell>
+            <TableDataCell>{record.trashBagsUsed}</TableDataCell>
           </TableRow>
         )}
         {record.cans !== 0 && (

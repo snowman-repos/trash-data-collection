@@ -178,7 +178,7 @@ const getData = (records) => {
         type: Number,
       },
       {
-        value: records[i].numberOfTrashBagsUsed,
+        value: records[i].trashBagsUsed,
         type: Number,
       },
       {

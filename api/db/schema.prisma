@@ -15,6 +15,7 @@ model Record {
   location            String
   numberOfVolunteers  Int
   totalWeight         Float
+  trashBagsUsed       Int
   cans                Int
   drums               Int
   glass               Int

@@ -8,6 +8,7 @@ export const QUERY = gql`
       group
       location
       numberOfVolunteers
+      trashBagsUsed
       totalWeight
       cans
       drums
