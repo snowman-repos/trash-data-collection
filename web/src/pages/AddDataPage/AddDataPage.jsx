@@ -201,13 +201,6 @@ const AddDataPage = () => {
           />
 
           <ItemCounter
-            id="glassLabel"
-            label="Glass Bottles"
-            count={glass}
-            setCount={setGlass}
-          />
-
-          <ItemCounter
             id="electronicsLabel"
             label="Electronics"
             helperText="e.g. light bulbs, batteries, phones, circuitboards"
@@ -220,6 +213,13 @@ const AddDataPage = () => {
             label="Footwear"
             count={footwear}
             setCount={setFootwear}
+          />
+
+          <ItemCounter
+            id="glassLabel"
+            label="Glass Bottles"
+            count={glass}
+            setCount={setGlass}
           />
 
           <ItemCounter
