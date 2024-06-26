@@ -33,13 +33,13 @@ const ThanksPage = () => {
       />
 
       <Container fluid>
-        <div className="d-flex flex-column vh-100 text-center">
+        <div className="d-flex flex-column dvh-100 text-center">
           <div>
             <h1 className="fs-2 mt-5 mb-5">Thanks!</h1>
           </div>
           <div className="flex-grow-1 overflow-scroll">
             <p className="mb-0">Your data has been saved.</p>
-            <div className="feedback-form">
+            <div className="feedback-form d-flex justify-content-center">
               <button
                 className="feedback-form-button"
                 onMouseEnter={() => setHoverValue(1)}

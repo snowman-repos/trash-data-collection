@@ -26,7 +26,7 @@ const HomePage = () => {
       />
 
       <Container fluid>
-        <div className="d-flex flex-column vh-100">
+        <div className="d-flex flex-column dvh-100">
           <div>
             <h1 className="fs-2 mt-3 mb-3">All Trash Data</h1>
           </div>

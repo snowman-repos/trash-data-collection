@@ -225,8 +225,8 @@ const AddDataPage = () => {
               className="bg-light mb-3 mb-sm-0 me-0 me-sm-3"
               onClick={() => setTranscriptionModalIsShown(true)}
             >
-              <i aria-hidden="true" className="bi bi-pencil" /> Write /
-              Transcribe
+              <i aria-hidden="true" className="bi bi-pencil" />{' '}
+              {transcription ? 'Edit / Transcribe' : 'Write / Transcribe'}
             </Button>
             <Button
               variant="outline-dark"

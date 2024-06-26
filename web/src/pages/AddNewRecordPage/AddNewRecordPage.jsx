@@ -39,7 +39,7 @@ const AddNewRecordPage = () => {
       />
 
       <Container fluid>
-        <div className="d-flex flex-column vh-100">
+        <div className="d-flex flex-column dvh-100">
           <div>
             <h1 className="fs-2 mt-3 mb-3">Add New Cleanup Record</h1>
           </div>
