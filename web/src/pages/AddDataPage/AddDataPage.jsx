@@ -134,14 +134,13 @@ const AddDataPage = () => {
       Other: ${other}
     `
 
-    navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
-      if (result.state === 'granted' || result.state === 'prompt') {
-        navigator.clipboard.writeText(text)
-        setCopied(true)
-      } else {
-        setDataError('Access to your clipboard was denied')
-      }
-    })
+    try {
+      navigator.clipboard.writeText(text)
+      setCopied(true)
+    } catch (err) {
+      setDataError('Could not copy')
+      console.log(err)
+    }
   }
 
   const [createRecord, { loading, error }] = useMutation(
