@@ -8,6 +8,7 @@ import mixpanel from 'mixpanel-browser'
 
 const HomePage = () => {
   const handleClick = () => {
+    mixpanel.track('New Record')
     navigate(routes.addData())
   }
 
