@@ -8,7 +8,7 @@ import mixpanel from 'mixpanel-browser'
 
 const HomePage = () => {
   const handleClick = () => {
-    navigate(routes.addNewRecord())
+    navigate(routes.addData())
   }
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const HomePage = () => {
           </div>
           <div className="text-center">
             <Button className="mt-3 mb-3" size="lg" onClick={handleClick}>
-              Add New Cleanup Record
+              Submit New Cleanup Data
             </Button>
           </div>
         </div>

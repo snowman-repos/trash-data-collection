@@ -1,5 +1,5 @@
 import { navigate, routes } from '@redwoodjs/router'
-import { Metadata, useMutation } from '@redwoodjs/web'
+import { Metadata } from '@redwoodjs/web'
 import { Container } from '@govtechsg/sgds-react/Container'
 import { RecordContext } from 'src/context'
 import { Button } from '@govtechsg/sgds-react/Button'
@@ -10,14 +10,6 @@ import { Toast } from '@govtechsg/sgds-react/Toast'
 import ItemCounter from 'src/components/ItemCounter/ItemCounter'
 import TranscriptionModal from 'src/components/TranscriptionModal/TranscriptionModal'
 import UploadModal from 'src/components/UploadModal/UploadModal'
-
-const CREATE_RECORD_MUTATION = gql`
-  mutation CreateRecordMutation($input: CreateRecordInput!) {
-    createRecord: createRecord(input: $input) {
-      id
-    }
-  }
-`
 
 const AddDataPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
@@ -64,9 +56,7 @@ const AddDataPage = () => {
   )
   const [selectedFile, setSelectedFile] = useState({})
   const [dataError, setDataError] = useState()
-  const [saveError, setSaveError] = useState(false)
   const [copied, setCopied] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
   const setters = {
     setTotalWeight,
@@ -90,8 +80,6 @@ const AddDataPage = () => {
   }
 
   useEffect(() => {
-    if (!recordContext) navigate(routes.addNewRecord())
-
     const interval = setInterval(() => {
       updateLocalStorage({ property: 'totalWeight', value: totalWeight })
       updateLocalStorage({ property: 'trashBagsUsed', value: trashBagsUsed })
@@ -143,47 +131,8 @@ const AddDataPage = () => {
     }
   }
 
-  const [createRecord, { loading, error }] = useMutation(
-    CREATE_RECORD_MUTATION,
-    {
-      onCompleted: () => {
-        setIsLoading(false)
-        // clear local storage
-        localStorage.removeItem('date')
-        localStorage.removeItem('location')
-        localStorage.removeItem('group')
-        localStorage.removeItem('numberOfVolunteers')
-        localStorage.removeItem('totalWeight')
-        localStorage.removeItem('trashBagsUsed')
-        localStorage.removeItem('cans')
-        localStorage.removeItem('drums')
-        localStorage.removeItem('electronics')
-        localStorage.removeItem('footwear')
-        localStorage.removeItem('glass')
-        localStorage.removeItem('jerryCans')
-        localStorage.removeItem('other')
-        localStorage.removeItem('plasticContainers')
-        localStorage.removeItem('plasticStraws')
-        localStorage.removeItem('smokingRelated')
-        localStorage.removeItem('tires')
-        localStorage.removeItem('selectedFile')
-        localStorage.removeItem('transcription')
-
-        navigate(routes.thanks())
-      },
-      onError: (error) => {
-        setSaveError(true)
-        console.log(error)
-      },
-    }
-  )
-
-  const handleSaveDataClick = () => {
-    setIsLoading(true)
-
-    // submit to api
-    const input = {
-      ...recordContext,
+  const handleAddCleanupDetailsClick = () => {
+    setRecordContext({
       totalWeight,
       trashBagsUsed,
       cans,
@@ -197,11 +146,9 @@ const AddDataPage = () => {
       smokingRelated,
       tires,
       other,
-    }
+    })
 
-    console.log(input)
-
-    createRecord({ variables: { input } })
+    navigate(routes.addNewRecord())
   }
 
   const handleTranscriptionModalClose = () => {}
@@ -215,7 +162,7 @@ const AddDataPage = () => {
       />
 
       <Container fluid>
-        <h1 className="fs-2 mt-3 mb-3">Add Data</h1>
+        <h1 className="fs-2 mt-3 mb-3">Add New Cleanup Data</h1>
         <Form className="text-center">
           <div className="bg-cyan-100 p-3 rounded">
             <h2 className="fs-4 mb-3">Need something easier?</h2>
@@ -353,11 +300,10 @@ const AddDataPage = () => {
           <Button
             className="mb-3"
             size="lg"
-            onClick={handleSaveDataClick}
-            disabled={isLoading}
-            aria-disabled={!isLoading ? 'false' : 'true'}
+            onClick={handleAddCleanupDetailsClick}
           >
-            {isLoading ? 'Saving…' : 'Save Data'}
+            <strong>Next: </strong>
+            <span>Add Cleanup Details</span>
           </Button>
         </Form>
       </Container>
