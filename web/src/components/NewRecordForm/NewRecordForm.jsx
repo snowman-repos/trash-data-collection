@@ -4,6 +4,7 @@ import { DatePicker } from '@govtechsg/sgds-react/DatePicker'
 import { Dropdown } from '@govtechsg/sgds-react/Dropdown'
 import { QuantityToggle } from '@govtechsg/sgds-react/QuantityToggle'
 import LocationCell from 'src/components/LocationCell/LocationCell'
+import config from 'src/config'
 
 import { groups } from 'src/cleanup-groups'
 
@@ -111,31 +112,33 @@ const NewRecordForm = ({
           />
         )}
       </Form.Group>
-      <Form.Group className="mb-3" controlId="cleanupGroup">
-        <Form.Label>Cleanup Group</Form.Label>
-        <Dropdown>
-          <Dropdown.Toggle>
-            {group !== '' ? group : 'Select Group'}
-            <i className="bi bi-chevron-down"></i>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {groups.map((group, index) => (
-              <Dropdown.Item
-                onClick={(e) => {
-                  setGroup(e.target.text)
-                  updateLocalStorage({
-                    property: 'group',
-                    value: e.target.text,
-                  })
-                }}
-                key={index}
-              >
-                {group}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-      </Form.Group>
+      {config.enableCleanupGroupSelection && (
+        <Form.Group className="mb-3" controlId="cleanupGroup">
+          <Form.Label>Cleanup Group</Form.Label>
+          <Dropdown>
+            <Dropdown.Toggle>
+              {group !== '' ? group : 'Select Group'}
+              <i className="bi bi-chevron-down"></i>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {groups.map((group, index) => (
+                <Dropdown.Item
+                  onClick={(e) => {
+                    setGroup(e.target.text)
+                    updateLocalStorage({
+                      property: 'group',
+                      value: e.target.text,
+                    })
+                  }}
+                  key={index}
+                >
+                  {group}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Form.Group>
+      )}
       <Form.Group className="mb-3" controlId="numberOfVolunteers">
         <Form.Label id="numberOfVolunteersLabel">
           Number of Volunteers

@@ -10,6 +10,7 @@ import { Toast } from '@govtechsg/sgds-react/Toast'
 import ItemCounter from 'src/components/ItemCounter/ItemCounter'
 import TranscriptionModal from 'src/components/TranscriptionModal/TranscriptionModal'
 import UploadModal from 'src/components/UploadModal/UploadModal'
+import config from 'src/config'
 
 const AddDataPage = () => {
   const [recordContext, setRecordContext] = useContext(RecordContext)
@@ -166,14 +167,16 @@ const AddDataPage = () => {
         <Form className="text-center">
           <div className="bg-cyan-100 p-3 rounded">
             <h2 className="fs-4 mb-3">Need something easier?</h2>
-            <Button
-              variant="outline-dark"
-              className="bg-light mb-3 mb-sm-0 me-0 me-sm-3"
-              onClick={() => setTranscriptionModalIsShown(true)}
-            >
-              <i aria-hidden="true" className="bi bi-pencil" />{' '}
-              {transcription ? 'Edit / Transcribe' : 'Write / Transcribe'}
-            </Button>
+            {config.enableTranscriptionAI && (
+              <Button
+                variant="outline-dark"
+                className="bg-light mb-3 mb-sm-0 me-0 me-sm-3"
+                onClick={() => setTranscriptionModalIsShown(true)}
+              >
+                <i aria-hidden="true" className="bi bi-pencil" />{' '}
+                {transcription ? 'Edit / Transcribe' : 'Write / Transcribe'}
+              </Button>
+            )}
             <Button
               variant="outline-dark"
               className="bg-light"
