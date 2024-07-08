@@ -5,6 +5,7 @@ import { Button } from '@govtechsg/sgds-react/Button'
 import RecordsCell from 'src/components/RecordsCell/RecordsCell'
 import { useEffect } from 'react'
 import mixpanel from 'mixpanel-browser'
+import config from 'src/config'
 
 const HomePage = () => {
   const handleClick = () => {
@@ -13,7 +14,7 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+    mixpanel.init(config.mixPanelTrackingCode, {
       debug: true,
       track_pageview: '/',
       persistence: 'localStorage',

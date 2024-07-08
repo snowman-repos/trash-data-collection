@@ -6,6 +6,8 @@ import {
   TableRow,
 } from '@govtechsg/sgds-react/Table'
 
+import config from 'src/config'
+
 const DataTable = ({ record }) => {
   return (
     <Table bordered striped size="sm" className="lh-1">
@@ -20,7 +22,9 @@ const DataTable = ({ record }) => {
         </TableRow>
         {record.numberOfVolunteers !== 0 && (
           <TableRow>
-            <TableHeaderCell>Trash per Volunteer (kg)</TableHeaderCell>
+            <TableHeaderCell>
+              Trash per Volunteer ({config.weightUnits})
+            </TableHeaderCell>
             <TableDataCell>
               {(record.totalWeight / record.numberOfVolunteers).toFixed(2)}
             </TableDataCell>

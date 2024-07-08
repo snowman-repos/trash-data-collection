@@ -4,6 +4,7 @@ import { FileUpload } from '@govtechsg/sgds-react/FileUpload'
 import { useEffect } from 'react'
 import readXlsxFile from 'read-excel-file'
 import mixpanel from 'mixpanel-browser'
+import config from 'src/config'
 
 const UploadModal = ({
   show,
@@ -14,7 +15,7 @@ const UploadModal = ({
   setters,
 }) => {
   useEffect(() => {
-    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+    mixpanel.init(config.mixPanelTrackingCode, {
       debug: true,
       persistence: 'localStorage',
     })

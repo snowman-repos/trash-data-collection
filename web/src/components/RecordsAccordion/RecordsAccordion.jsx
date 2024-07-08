@@ -8,6 +8,7 @@ import {
 } from '@govtechsg/sgds-react/Accordion'
 import DataTable from 'src/components/DataTable/DataTable'
 import mixpanel from 'mixpanel-browser'
+import config from 'src/config'
 
 const getData = (records) => {
   let data = []
@@ -53,7 +54,7 @@ const getData = (records) => {
       alignVertical: 'center',
     },
     {
-      value: 'Total Weight (kg)',
+      value: `Total Weight (${config.weightUnits})`,
       fontWeight: 'bold',
       fontSize: '12',
       backgroundColor: '#f3f3f3',
@@ -61,7 +62,7 @@ const getData = (records) => {
       alignVertical: 'center',
     },
     {
-      value: 'Weight / Volunteer (kg)',
+      value: `Weight / Volunteer (${config.weightUnits})`,
       fontWeight: 'bold',
       fontSize: '12',
       backgroundColor: '#f3f3f3',
@@ -249,7 +250,7 @@ const getData = (records) => {
 
 const RecordsAccordion = ({ records }) => {
   useEffect(() => {
-    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+    mixpanel.init(config.mixPanelTrackingCode, {
       debug: true,
       persistence: 'localStorage',
     })

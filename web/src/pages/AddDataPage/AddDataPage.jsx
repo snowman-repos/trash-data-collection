@@ -189,7 +189,7 @@ const AddDataPage = () => {
 
           <div className="bg-light-100 mt-3 mb-3 p-3 rounded">
             <h2 className="fs-4 mb-1" id="totalWeightLabel">
-              Total Weight (kg)
+              Total Weight ({config.weightUnits})
             </h2>
             <Form.Text muted>(required)</Form.Text>
             <QuantityToggle

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import TrashDataCell from 'src/components/TrashDataCell/TrashDataCell'
 import TranscribeAudio from 'src/components/TranscribeAudio/TranscribeAudio'
 import mixpanel from 'mixpanel-browser'
+import config from 'src/config'
 
 const TranscriptionModal = ({
   show,
@@ -18,7 +19,7 @@ const TranscriptionModal = ({
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+    mixpanel.init(config.mixPanelTrackingCode, {
       debug: true,
       persistence: 'localStorage',
     })

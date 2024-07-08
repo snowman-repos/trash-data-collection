@@ -4,6 +4,7 @@ import { Container } from '@govtechsg/sgds-react/Container'
 import { Button } from '@govtechsg/sgds-react/Button'
 import { useEffect, useState } from 'react'
 import mixpanel from 'mixpanel-browser'
+import config from 'src/config'
 
 const ThanksPage = () => {
   const [feedbackGiven, setFeedbackGiven] = useState(false)
@@ -11,7 +12,7 @@ const ThanksPage = () => {
   const [feedbackValue, setFeedbackValue] = useState(0)
 
   useEffect(() => {
-    mixpanel.init('498a0e340f01c41e22cac10bc452ade8', {
+    mixpanel.init(config.mixPanelTrackingCode, {
       debug: true,
       persistence: 'localStorage',
     })
