@@ -1,122 +1,88 @@
-# README
+# Pre-requisites
 
-Welcome to [RedwoodJS](https://redwoodjs.com)!
+## Node & Yarn</h4>
 
-> **Prerequisites**
->
-> - Redwood requires [Node.js](https://nodejs.org/en/) (=20.x) and [Yarn](https://yarnpkg.com/)
-> - Are you on Windows? For best results, follow our [Windows development setup](https://redwoodjs.com/docs/how-to/windows-development-setup) guide
+This is built using [RedwoodJS](https://docs.redwoodjs.com/docs/2.x/quick-start/) which requires [Node.js](https://nodejs.org/en/) (>=14.19.x <=16.x) and [Yarn](https://yarnpkg.com/) (>=1.15).
 
-Start by installing dependencies:
+## Postgres
+
+Follow the instructions for local Postgres setup on [the RedwoodJS documentation](https://docs.redwoodjs.com/docs/local-postgres-setup/).
+
+## Google API Key
+
+The app uses [Google's Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview) to determine the address for a user's current location based on the latitude and longitude of their device as reported by their browser. This is to save the user some input effort and to ensure consistent location reporting. You will need to create a Google Cloud account and a [project](https://console.cloud.google.com/projectcreate). Then you will need to [enable the Geocoding API for that project](https://console.cloud.google.com/google/maps-apis/api-list) and [generate an API key credential](https://console.cloud.google.com/google/maps-apis/credentials).
+
+## OpenAI API Key
+
+The app uses OpenAI to parse written or spoken transcriptions containing information about trash data. If you wish to use this feature, you will need to [generate an API key](https://platform.openai.com/api-keys). (if you do _not_ wish to use this feature, you should set `enableTranscriptionAI` to `false` in `/web/src/config.js`)
+
+## Mixpanel Project Token
+
+The app tracks pageviews and events using [Mixpanel](https://mixpanel.com/). Sign up for an account, create a project, and get a project token. It's up to you how you want to set up your reports and dashboards in Mixpanel, but these are the events that the app currently tracks:
+
+| **Event**       | **Description**                                                                                                       |
+| --------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **Pageview**    | Unique visits to the home page (i.e. visitors to the app)                                                             |
+| **New Record**  | The event triggered when the user taps the button to create a new trash data record (i.e. key activation metric).     |
+| **Data Saved**  | The event triggered when a record has been added (i.e. the completion of the primary user journey).                   |
+| **Downloaded**  | The event triggered when a user downloads a CSV of all the data                                                       |
+| **Transcribed** | The event triggered when the user provides their data via an AI-parsed transcription.                                 |
+| **Uploaded**    | The event triggered when the user uploads a spreadsheet with their trash data.                                        |
+| **Feedback**    | The event triggered when the user provides a star rating after submitting data. This will have a value named `score`. |
+
+## A `.env` file
+
+Create a `.env` file in the project root directory with the following key-value pairs:
+
+```
+DATABASE_URL="postgresql://<YOUR USERNAME>@localhost:5432/databasename_dev?connection_limit=1"
+TEST_DATABASE_URL="postgresql://<YOUR USERNAME>@localhost:5432/databasename_test?connection_limit=1"
+GOOGLE_API_KEY=<YOUR GOOGLE API KEY>
+OPENAI_API_KEY=<YOUR OPENAI API KEY>
+```
+
+# Running the App Locally
+
+Follow the instructions in the [RedwoodJS documentation](https://docs.redwoodjs.com/docs/quick-start/). After you clone [the repository](https://github.com/snowman-repos/trash-data-collection), run:
 
 ```
 yarn install
-```
-
-Then start the development server:
-
-```
 yarn redwood dev
 ```
 
-Your browser should automatically open to [http://localhost:8910](http://localhost:8910) where you'll see the Welcome Page, which links out to many great resources.
+Your browser should automatically open to [http://localhost:8910](http://localhost:8910) where you'll see the home screen. If you make any changes to the code they will be reflected automatically without needing to refresh.
 
-> **The Redwood CLI**
->
-> Congratulations on running your first Redwood CLI command! From dev to deploy, the CLI is with you the whole way. And there's quite a few commands at your disposal:
->
-> ```
-> yarn redwood --help
-> ```
->
-> For all the details, see the [CLI reference](https://redwoodjs.com/docs/cli-commands).
+The app uses the [Singapore Government Design System](https://designsystem.tech.gov.sg/).
 
-## Prisma and the database
+## Configuration
 
-Redwood wouldn't be a full-stack framework without a database. It all starts with the schema. Open the [`schema.prisma`](api/db/schema.prisma) file in `api/db` and replace the `UserExample` model with the following `Post` model:
+There are 3 configuration options in the `/web/src/config.js` file:
 
-```prisma
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  body      String
-  createdAt DateTime @default(now())
-}
-```
+| **Option**                | **Description**                                                                                                                                                                                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **enableTranscriptionAI** | When this is set to `true`, the app will present a feature for the user to enter an audio transcription. You might want to turn this off if you are not paying for an OpenAI subscription, which is required for parsing transcriptions. |
 
-Redwood uses [Prisma](https://www.prisma.io/), a next-gen Node.js and TypeScript ORM, to talk to the database. Prisma's schema offers a declarative way of defining your app's data models. And Prisma [Migrate](https://www.prisma.io/migrate) uses that schema to make database migrations hassle-free:
+**Default:** `true` |
+| **enableCleanupGroupSelection** | When this is set to `true`, the form will prompt the user to select from a list of cleanup groups. This is for when you want to associate trash data collection records with specific cleanup volunteer groups. The list of groups to select from is in `/web/src/cleanup-groups.js`.
 
-```
-yarn rw prisma migrate dev
+**Default:** `true` |
+| **weightUnits** | The value is a string that denotes the weight unit. This is in case you're running this app in Liberia, Myanmar, or any other country that uses non-metric units.
 
-# ...
+**Default:** `"kg"` |
+| **mixPanelTrackingCode** | Your Mixpanel project token.
 
-? Enter a name for the new migration: › create posts
-```
+**IMPORTANT:** change the default value! |
 
-> `rw` is short for `redwood`
+## Deployment
 
-You'll be prompted for the name of your migration. `create posts` will do.
+Follow the intstructions in [the RedwoodJS documentation](https://docs.redwoodjs.com/docs/tutorial/chapter4/deployment/). You'll also learn about setting up a remote database.
 
-Now let's generate everything we need to perform all the CRUD (Create, Retrieve, Update, Delete) actions on our `Post` model:
+# Coming Soon
 
-```
-yarn redwood generate scaffold post
-```
+1. Generate social media post
+2. Paginate trash data records
+3. Trash data public API
 
-Navigate to [http://localhost:8910/posts/new](http://localhost:8910/posts/new), fill in the title and body, and click "Save".
+# Feedback, Comments, Questions, and Suggestions
 
-Did we just create a post in the database? Yup! With `yarn rw generate scaffold <model>`, Redwood created all the pages, components, and services necessary to perform all CRUD actions on our posts table.
-
-## Frontend first with Storybook
-
-Don't know what your data models look like? That's more than ok—Redwood integrates Storybook so that you can work on design without worrying about data. Mockup, build, and verify your React components, even in complete isolation from the backend:
-
-```
-yarn rw storybook
-```
-
-Seeing "Couldn't find any stories"? That's because you need a `*.stories.{tsx,jsx}` file. The Redwood CLI makes getting one easy enough—try generating a [Cell](https://redwoodjs.com/docs/cells), Redwood's data-fetching abstraction:
-
-```
-yarn rw generate cell examplePosts
-```
-
-The Storybook server should hot reload and now you'll have four stories to work with. They'll probably look a little bland since there's no styling. See if the Redwood CLI's `setup ui` command has your favorite styling library:
-
-```
-yarn rw setup ui --help
-```
-
-## Testing with Jest
-
-It'd be hard to scale from side project to startup without a few tests. Redwood fully integrates Jest with both the front- and back-ends, and makes it easy to keep your whole app covered by generating test files with all your components and services:
-
-```
-yarn rw test
-```
-
-To make the integration even more seamless, Redwood augments Jest with database [scenarios](https://redwoodjs.com/docs/testing#scenarios)  and [GraphQL mocking](https://redwoodjs.com/docs/testing#mocking-graphql-calls).
-
-## Ship it
-
-Redwood is designed for both serverless deploy targets like Netlify and Vercel and serverful deploy targets like Render and AWS:
-
-```
-yarn rw setup deploy --help
-```
-
-Don't go live without auth! Lock down your app with Redwood's built-in, database-backed authentication system ([dbAuth](https://redwoodjs.com/docs/authentication#self-hosted-auth-installation-and-setup)), or integrate with nearly a dozen third-party auth providers:
-
-```
-yarn rw setup auth --help
-```
-
-## Next Steps
-
-The best way to learn Redwood is by going through the comprehensive [tutorial](https://redwoodjs.com/docs/tutorial/foreword) and joining the community (via the [Discourse forum](https://community.redwoodjs.com) or the [Discord server](https://discord.gg/redwoodjs)).
-
-## Quick Links
-
-- Stay updated: read [Forum announcements](https://community.redwoodjs.com/c/announcements/5), follow us on [Twitter](https://twitter.com/redwoodjs), and subscribe to the [newsletter](https://redwoodjs.com/newsletter)
-- [Learn how to contribute](https://redwoodjs.com/docs/contributing)
+Please [create an issue](https://github.com/snowman-repos/trash-data-collection/issues/new) or [email Darryl](mailto:dazsnow@gmail.com).
