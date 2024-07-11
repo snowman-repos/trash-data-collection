@@ -62,6 +62,7 @@ const UploadModal = ({
         <p className="fw-bold">Upload a .xlsx file</p>
         <FileUpload
           controlId="fileupload"
+          data-testid="fileupload"
           onChangeFile={onChangeFile}
           selectedFile={selectedFile}
           variant="secondary"

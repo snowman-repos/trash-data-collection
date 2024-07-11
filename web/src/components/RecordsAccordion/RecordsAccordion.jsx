@@ -269,7 +269,7 @@ const RecordsAccordion = ({ records }) => {
   }
   return (
     <>
-      <Accordion>
+      <Accordion data-testid="records-accordion">
         {records.map((record) => (
           <AccordionItem eventKey={record.id.toString()} key={record.id}>
             <AccordionHeader>

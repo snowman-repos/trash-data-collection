@@ -1,4 +1,4 @@
-import { render } from '@redwoodjs/testing/web'
+import { render, screen } from '@redwoodjs/testing/web'
 import { Loading, Empty, Failure, Success } from './RecordsCell'
 import { standard } from './RecordsCell.mock'
 
@@ -37,5 +37,10 @@ describe('RecordsCell', () => {
     expect(() => {
       render(<Success records={standard().records} />)
     }).not.toThrow()
+  })
+
+  it('renders a records accordion component', () => {
+    render(<Success records={standard().records} />)
+    expect(screen.getByTestId('records-accordion')).toBeInTheDocument()
   })
 })

@@ -9,6 +9,7 @@
     ]
   },
   "devDependencies": {
+    "@redwoodjs/cli-storybook": "7.7.1",
     "@redwoodjs/core": "7.7.1",
     "@redwoodjs/project-config": "7.7.1"
   },

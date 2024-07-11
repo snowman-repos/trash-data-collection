@@ -1,17 +1,17 @@
-// Pass props to your component by passing an `args` object to your story
-//
-// ```jsx
-// export const Primary = {
-//  args: {
-//    propName: propValue
-//  }
-// }
-// ```
-//
-// See https://storybook.js.org/docs/react/writing-stories/args.
-
 import ItemCounter from './ItemCounter'
 
-export default { component: ItemCounter }
+const mockProps = {
+  id: 'item-counter',
+  label: 'Items',
+  helperText: 'Select the number of items',
+  count: 0,
+  setCount: () => {},
+}
+
+export default { component: ItemCounter, args: { ...mockProps } }
+
+{
+  /* <ItemCounter {...mockProps} /> */
+}
 
 export const Primary = {}

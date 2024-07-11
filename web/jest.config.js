@@ -3,6 +3,7 @@
 const config = {
   rootDir: '../',
   preset: '@redwoodjs/testing/config/jest/web',
+  transformIgnorePatterns: ['/node_modules/(?!@govtechsg)'],
 }
 
 module.exports = config

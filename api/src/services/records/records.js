@@ -5,6 +5,11 @@ export const getLocation = async ({ lat, long }) => {
     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${process.env.GOOGLE_API_KEY}`
   )
   const results = await response.json()
+
+  if (results.results.length === 0) {
+    throw new Error('No results found')
+  }
+
   return results.results[0].formatted_address
 }
 

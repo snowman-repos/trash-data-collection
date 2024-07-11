@@ -45,6 +45,7 @@ const ThanksPage = () => {
                 className="feedback-form-button"
                 onMouseEnter={() => setHoverValue(1)}
                 onMouseLeave={() => setHoverValue(0)}
+                aria-label="Rating 1"
                 onClick={() => saveFeedback(1)}
               >
                 <i
@@ -60,6 +61,7 @@ const ThanksPage = () => {
                 className="feedback-form-button"
                 onMouseEnter={() => setHoverValue(2)}
                 onMouseLeave={() => setHoverValue(0)}
+                aria-label="Rating 2"
                 onClick={() => saveFeedback(2)}
               >
                 <i
@@ -75,6 +77,7 @@ const ThanksPage = () => {
                 className="feedback-form-button"
                 onMouseEnter={() => setHoverValue(3)}
                 onMouseLeave={() => setHoverValue(0)}
+                aria-label="Rating 3"
                 onClick={() => saveFeedback(3)}
               >
                 <i
@@ -90,6 +93,7 @@ const ThanksPage = () => {
                 className="feedback-form-button"
                 onMouseEnter={() => setHoverValue(4)}
                 onMouseLeave={() => setHoverValue(0)}
+                aria-label="Rating 4"
                 onClick={() => saveFeedback(4)}
               >
                 <i
@@ -105,6 +109,7 @@ const ThanksPage = () => {
                 className="feedback-form-button"
                 onMouseEnter={() => setHoverValue(5)}
                 onMouseLeave={() => setHoverValue(0)}
+                aria-label="Rating 5"
                 onClick={() => saveFeedback(5)}
               >
                 <i

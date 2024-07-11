@@ -1,16 +1,49 @@
 import { Button } from '@govtechsg/sgds-react/Button'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import 'regenerator-runtime/runtime'
-import SpeechRecognition from 'react-speech-recognition'
-import { useSpeechRecognition } from 'react-speech-recognition'
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from 'react-speech-recognition' // Ensure correct import
 
 const TranscribeAudio = ({ transcription, setTranscription, isLoading }) => {
   const [activated, setActivated] = useState(false)
   const [isListening, setIsListening] = useState(false)
-  const { transcript, resetTranscript, finalTranscript, listening } =
-    useSpeechRecognition()
+  const [micError, setMicError] = useState(false)
+  const { resetTranscript } = useSpeechRecognition()
+
+  useEffect(() => {
+    const initializeSpeechRecognition = () => {
+      if (SpeechRecognition) {
+        const recognition = SpeechRecognition.getRecognition()
+        if (recognition) {
+          recognition.onresult = (e) => {
+            if (e.results && e.results[0].isFinal) {
+              console.log(e.results[0][0].transcript)
+              setTranscription(
+                transcription
+                  ? transcription + '\r\n' + e.results[0][0].transcript
+                  : e.results[0][0].transcript
+              )
+              resetTranscript()
+            }
+          }
+        } else {
+          console.error('Recognition instance not available')
+        }
+      } else {
+        console.error('SpeechRecognition module not available')
+      }
+    }
+
+    initializeSpeechRecognition()
+  }, [setTranscription, transcription, resetTranscript])
 
   const activateMic = () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.error('getUserMedia is not supported')
+      return
+    }
+
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
@@ -18,35 +51,30 @@ const TranscribeAudio = ({ transcription, setTranscription, isLoading }) => {
         setActivated(true)
       })
       .catch((err) => {
-        // alert('this is not going to work without microphone :)')
-        console.error(err)
+        console.error('Error accessing microphone:', err)
+        setMicError(true)
       })
   }
 
   const startTranscribing = (e) => {
-    if (isListening === false) {
-      SpeechRecognition.startListening({ continuous: true })
-      setIsListening(true)
+    if (!isListening) {
+      if (SpeechRecognition && SpeechRecognition.startListening) {
+        SpeechRecognition.startListening({ continuous: true })
+        setIsListening(true) // Ensure this is triggered correctly
+      } else {
+        console.error('SpeechRecognition.startListening is not available')
+      }
     }
   }
 
   const stopTranscribing = (e) => {
     if (isListening === true) {
-      SpeechRecognition.abortListening()
-      setIsListening(false)
-    }
-  }
-
-  const recognition = SpeechRecognition.getRecognition()
-  recognition.onresult = (e) => {
-    if (e.results[0].isFinal) {
-      console.log(e.results[0][0].transcript)
-      setTranscription(
-        transcription
-          ? transcription + '\r\n' + e.results[0][0].transcript
-          : e.results[0][0].transcript
-      )
-      resetTranscript()
+      if (SpeechRecognition && SpeechRecognition.abortListening) {
+        SpeechRecognition.abortListening()
+        setIsListening(false)
+      } else {
+        console.error('SpeechRecognition.abortListening is not available')
+      }
     }
   }
 
@@ -80,6 +108,7 @@ const TranscribeAudio = ({ transcription, setTranscription, isLoading }) => {
           <i aria-hidden="true" className="bi bi-mic-fill" /> Stop
         </Button>
       )}
+      {micError && <div className="text-danger">Mic permissions denied</div>}
     </>
   )
 }
