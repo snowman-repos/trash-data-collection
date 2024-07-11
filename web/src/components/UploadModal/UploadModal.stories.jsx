@@ -12,6 +12,16 @@
 
 import UploadModal from './UploadModal'
 
-export default { component: UploadModal }
+export default {
+  component: UploadModal,
+  args: {
+    show: true,
+    onHide: () => {},
+    toggleModal: () => {},
+    setters: {},
+    selectedFile: null,
+    setSelectedFile: () => {},
+  },
+}
 
 export const Primary = {}

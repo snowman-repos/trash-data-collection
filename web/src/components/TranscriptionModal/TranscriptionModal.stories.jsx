@@ -12,6 +12,16 @@
 
 import TranscriptionModal from './TranscriptionModal'
 
-export default { component: TranscriptionModal }
+export default {
+  component: TranscriptionModal,
+  args: {
+    show: true,
+    onHide: () => {},
+    setTranscription: () => {},
+    transcription: '',
+    toggleModal: () => {},
+    setters: {},
+  },
+}
 
 export const Primary = {}
