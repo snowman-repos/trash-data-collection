@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import track from 'src/lib/analytics'
 
 export const QUERY = gql`
   query TrashDataQuery($transcript: String!) {
@@ -96,8 +95,6 @@ export const Success = ({ trashData, setIsLoading, toggleModal, setters }) => {
     setters.setTires(data.tires)
     setIsLoading(false)
     toggleModal(false)
-
-    track({ event: 'Data Saved' })
   })
   return <></>
 }

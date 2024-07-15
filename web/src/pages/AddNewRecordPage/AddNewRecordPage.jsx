@@ -6,6 +6,7 @@ import { Button } from '@govtechsg/sgds-react/Button'
 import { RecordContext } from 'src/context'
 import { Toast } from '@govtechsg/sgds-react/Toast'
 import NewRecordForm from 'src/components/NewRecordForm/NewRecordForm'
+import track from 'src/lib/analytics'
 
 const CREATE_RECORD_MUTATION = gql`
   mutation CreateRecordMutation($input: CreateRecordInput!) {
@@ -57,7 +58,7 @@ const AddNewRecordPage = () => {
         localStorage.removeItem('tires')
         localStorage.removeItem('selectedFile')
         localStorage.removeItem('transcription')
-
+        track({ event: 'Data Saved' })
         navigate(routes.thanks())
       },
       onError: (err) => {

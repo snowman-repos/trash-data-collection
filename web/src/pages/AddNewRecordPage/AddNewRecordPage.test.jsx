@@ -1,7 +1,18 @@
+// import track from 'src/lib/analytics'
 // // import { render, fireEvent, waitFor } from '@redwoodjs/testing/web'
 // // import { MockedProvider } from '@apollo/client/testing'
 // // import { navigate, routes } from '@redwoodjs/router'
 // import AddNewRecordPage from '/src/pages/AddNewRecordPage/AddNewRecordPage'
+
+// jest.mock('src/lib/analytics', () => ({
+//   __esModule: true,
+//   default: jest.fn(),
+// }))
+
+// // Ensure correct setup for the mock function
+// const trackMock = jest.fn()
+// trackMock.mockResolvedValue({})
+// track.mockImplementation(trackMock)
 
 // // // Mock the RecordContext
 // // jest.mock('/src/context', () => ({
