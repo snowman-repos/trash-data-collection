@@ -80,7 +80,7 @@ export const Success = ({ trashData, setIsLoading, toggleModal, setters }) => {
   const data = getProcessedData({ data: JSON.parse(trashData.data) })
   console.log(data)
   useEffect(() => {
-    setters.setTotalWeight(data.totalWeight)
+    setters.setTotalWeight(Math.round(data.totalWeight))
     setters.setTrashBagsUsed(data.numberOfTrashBagsUsed)
     setters.setCans(data.cans)
     setters.setDrums(data.drums)

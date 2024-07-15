@@ -14,7 +14,7 @@ model Record {
   group               String
   location            String
   numberOfVolunteers  Int
-  totalWeight         Float
+  totalWeight         Int
   trashBagsUsed       Int
   cans                Int
   drums               Int

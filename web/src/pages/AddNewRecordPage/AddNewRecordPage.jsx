@@ -36,8 +36,7 @@ const AddNewRecordPage = () => {
   const [createRecord, { loading, error }] = useMutation(
     CREATE_RECORD_MUTATION,
     {
-      onCompleted: () => {
-        setIsLoading(false)
+      onCompleted: async () => {
         // clear local storage
         localStorage.removeItem('date')
         localStorage.removeItem('location')
@@ -58,7 +57,8 @@ const AddNewRecordPage = () => {
         localStorage.removeItem('tires')
         localStorage.removeItem('selectedFile')
         localStorage.removeItem('transcription')
-        track({ event: 'Data Saved' })
+        await track({ event: 'Data Saved' })
+        setIsLoading(false)
         navigate(routes.thanks())
       },
       onError: (err) => {
