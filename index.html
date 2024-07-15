@@ -292,7 +292,7 @@
               <div class="table-wrapper">
                 <table>
                   <tr>
-                    <td><strong>Pageview</strong></td>
+                    <td><strong>Home Page View</strong></td>
                     <td>
                       Unique visits to the home page (i.e. visitors to the app)
                     </td>
@@ -344,6 +344,10 @@
                   </tr>
                 </table>
               </div>
+              <p>
+                The app will also track the user's <code>device</code>,
+                <code>os</code>, and <code>browser</code>.
+              </p>
             </li>
             <li>
               <h4>An <code>.env</code> file</h4>
@@ -357,6 +361,7 @@ DATABASE_URL="postgresql://&lt;YOUR USERNAME&gt;@localhost:5432/databasename_dev
 TEST_DATABASE_URL="postgresql://&lt;YOUR USERNAME&gt;@localhost:5432/databasename_test?connection_limit=1"
 GOOGLE_API_KEY=&lt;YOUR GOOGLE API KEY&gt;
 OPENAI_API_KEY=&lt;YOUR OPENAI API KEY&gt;
+MIXPANEL_PROJECT_TOKEN=&lt;YOUR MIXPANEL PROJECT TOKEN&gt;
 								</code>
 							</pre>
             </li>
@@ -437,18 +442,6 @@ yarn redwood dev
                     other country that uses non-metric units.
                   </p>
                   <p><strong>Default:</strong> <code>"kg"</code></p>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>mixPanelTrackingCode</strong></td>
-                <td>
-                  <p>
-                    Your Mixpanel project token.
-                    <strong style="text-transform: uppercase"
-                      >Important:</strong
-                    >
-                    change the default value!
-                  </p>
                 </td>
               </tr>
             </table>

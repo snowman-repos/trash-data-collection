@@ -4,21 +4,16 @@ import { Container } from '@govtechsg/sgds-react/Container'
 import { Button } from '@govtechsg/sgds-react/Button'
 import RecordsCell from 'src/components/RecordsCell/RecordsCell'
 import { useEffect } from 'react'
-import mixpanel from 'mixpanel-browser'
-import config from 'src/config'
+import track from 'src/lib/analytics'
 
 const HomePage = () => {
   const handleClick = () => {
-    mixpanel.track('New Record')
+    track({ event: 'New Record' })
     navigate(routes.addData())
   }
 
   useEffect(() => {
-    mixpanel.init(config.mixPanelTrackingCode, {
-      debug: true,
-      track_pageview: '/',
-      persistence: 'localStorage',
-    })
+    track({ event: 'Home Page View' })
   })
   return (
     <>

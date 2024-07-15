@@ -1,12 +1,16 @@
 import { render, screen, fireEvent, waitFor } from '@redwoodjs/testing/web'
-import mixpanel from 'mixpanel-browser'
+import track from 'src/lib/analytics'
 import UploadModal from './UploadModal'
 
-// Mock mixpanel
-jest.mock('mixpanel-browser', () => ({
-  init: jest.fn(),
-  track: jest.fn(),
+jest.mock('src/lib/analytics', () => ({
+  __esModule: true,
+  default: jest.fn(),
 }))
+
+// Ensure correct setup for the mock function
+const trackMock = jest.fn()
+trackMock.mockResolvedValue({})
+track.mockImplementation(trackMock)
 
 describe('UploadModal', () => {
   const onHideMock = jest.fn()
@@ -31,8 +35,6 @@ describe('UploadModal', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    mixpanel.init.mockClear()
-    mixpanel.track.mockClear()
   })
 
   it('renders modal with Upload Spreadsheet title and FileUpload component', () => {
@@ -140,6 +142,7 @@ describe('UploadModal', () => {
     fireEvent.click(doneButton)
 
     expect(toggleModalMock).toHaveBeenCalledWith(false)
-    expect(mixpanel.track).toHaveBeenCalledWith('Uploaded')
+    expect(trackMock).toHaveBeenCalledTimes(1)
+    expect(trackMock).toHaveBeenCalledWith({ event: 'Uploaded' })
   })
 })

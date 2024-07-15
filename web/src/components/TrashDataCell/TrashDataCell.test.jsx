@@ -17,13 +17,19 @@ describe('TrashDataCell', () => {
 
   it('renders Empty successfully', async () => {
     expect(() => {
-      render(<Empty />)
+      render(<Empty setIsLoading={standard().setIsLoading} />)
     }).not.toThrow()
   })
 
   it('renders Failure successfully', async () => {
     expect(() => {
-      render(<Failure error={new Error('Oh no')} />)
+      render(
+        <Failure
+          error={new Error('Oh no')}
+          setIsLoading={standard().setIsLoading}
+          setters={standard().setters}
+        />
+      )
     }).not.toThrow()
   })
 
@@ -35,7 +41,14 @@ describe('TrashDataCell', () => {
 
   it('renders Success successfully', async () => {
     expect(() => {
-      render(<Success trashData={standard().trashData} />)
+      render(
+        <Success
+          trashData={standard().trashData}
+          setIsLoading={standard().setIsLoading}
+          toggleModal={standard().toggleModal}
+          setters={standard().setters}
+        />
+      )
     }).not.toThrow()
   })
 })

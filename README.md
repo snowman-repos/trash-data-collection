@@ -20,15 +20,17 @@ The app uses OpenAI to parse written or spoken transcriptions containing informa
 
 The app tracks pageviews and events using [Mixpanel](https://mixpanel.com/). Sign up for an account, create a project, and get a project token. It's up to you how you want to set up your reports and dashboards in Mixpanel, but these are the events that the app currently tracks:
 
-| **Event**       | **Description**                                                                                                       |
-| --------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Pageview**    | Unique visits to the home page (i.e. visitors to the app)                                                             |
-| **New Record**  | The event triggered when the user taps the button to create a new trash data record (i.e. key activation metric).     |
-| **Data Saved**  | The event triggered when a record has been added (i.e. the completion of the primary user journey).                   |
-| **Downloaded**  | The event triggered when a user downloads a CSV of all the data                                                       |
-| **Transcribed** | The event triggered when the user provides their data via an AI-parsed transcription.                                 |
-| **Uploaded**    | The event triggered when the user uploads a spreadsheet with their trash data.                                        |
-| **Feedback**    | The event triggered when the user provides a star rating after submitting data. This will have a value named `score`. |
+| **Event**          | **Description**                                                                                                       |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| **Home Page View** | Unique visits to the home page (i.e. visitors to the app)                                                             |
+| **New Record**     | The event triggered when the user taps the button to create a new trash data record (i.e. key activation metric).     |
+| **Data Saved**     | The event triggered when a record has been added (i.e. the completion of the primary user journey).                   |
+| **Downloaded**     | The event triggered when a user downloads a CSV of all the data                                                       |
+| **Transcribed**    | The event triggered when the user provides their data via an AI-parsed transcription.                                 |
+| **Uploaded**       | The event triggered when the user uploads a spreadsheet with their trash data.                                        |
+| **Feedback**       | The event triggered when the user provides a star rating after submitting data. This will have a value named `score`. |
+
+The app will also track the user's `device`, `os`, and `browser`.
 
 ## A `.env` file
 
@@ -39,6 +41,7 @@ DATABASE_URL="postgresql://<YOUR USERNAME>@localhost:5432/databasename_dev?conne
 TEST_DATABASE_URL="postgresql://<YOUR USERNAME>@localhost:5432/databasename_test?connection_limit=1"
 GOOGLE_API_KEY=<YOUR GOOGLE API KEY>
 OPENAI_API_KEY=<YOUR OPENAI API KEY>
+MIXPANEL_PROJECT_TOKEN=<YOUR MIXPANEL PROJECT TOKEN>
 ```
 
 # Running the App Locally
@@ -69,9 +72,6 @@ There are 3 configuration options in the `/web/src/config.js` file:
 | **weightUnits** | The value is a string that denotes the weight unit. This is in case you're running this app in Liberia, Myanmar, or any other country that uses non-metric units.
 
 **Default:** `"kg"` |
-| **mixPanelTrackingCode** | Your Mixpanel project token.
-
-**IMPORTANT:** change the default value! |
 
 ## Deployment
 

@@ -2,28 +2,18 @@ import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { Container } from '@govtechsg/sgds-react/Container'
 import { Button } from '@govtechsg/sgds-react/Button'
-import { useEffect, useState } from 'react'
-import mixpanel from 'mixpanel-browser'
-import config from 'src/config'
+import { useState } from 'react'
+import track from 'src/lib/analytics'
 
 const ThanksPage = () => {
   const [feedbackGiven, setFeedbackGiven] = useState(false)
   const [hoverValue, setHoverValue] = useState(0)
   const [feedbackValue, setFeedbackValue] = useState(0)
 
-  useEffect(() => {
-    mixpanel.init(config.mixPanelTrackingCode, {
-      debug: true,
-      persistence: 'localStorage',
-    })
-  })
-
   const saveFeedback = (value) => {
     setFeedbackValue(value)
     setFeedbackGiven(true)
-    mixpanel.track('Feedback', {
-      score: value,
-    })
+    track({ event: 'Feedback', value })
   }
 
   return (
@@ -139,7 +129,6 @@ const ThanksPage = () => {
               className="mt-3 mb-3"
               size="lg"
               onClick={() => {
-                //submit feedback value to mixpanel
                 navigate(routes.home())
               }}
             >

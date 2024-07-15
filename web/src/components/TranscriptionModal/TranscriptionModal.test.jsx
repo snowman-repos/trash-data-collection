@@ -1,18 +1,20 @@
 import { render, screen, fireEvent, waitFor } from '@redwoodjs/testing/web'
-import mixpanel from 'mixpanel-browser'
+import track from 'src/lib/analytics'
 import TranscriptionModal from './TranscriptionModal'
 
-// Mock mixpanel
-jest.mock('mixpanel-browser', () => ({
-  init: jest.fn(),
-  track: jest.fn(),
+jest.mock('src/lib/analytics', () => ({
+  __esModule: true,
+  default: jest.fn(),
 }))
+
+// Ensure correct setup for the mock function
+const trackMock = jest.fn()
+trackMock.mockResolvedValue({})
+track.mockImplementation(trackMock)
 
 describe('TranscriptionModal', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    mixpanel.init.mockClear()
-    mixpanel.track.mockClear()
   })
 
   it('renders with instructions initially', () => {
@@ -94,7 +96,8 @@ describe('TranscriptionModal', () => {
       fireEvent.click(doneButton)
     })
 
-    expect(mixpanel.track).toHaveBeenCalledWith('Transcribed')
+    expect(trackMock).toHaveBeenCalledTimes(1)
+    expect(trackMock).toHaveBeenCalledWith({ event: 'Transcribed' })
   })
 
   it('renders with textarea after instructions are shown and isLoading is false', () => {

@@ -1,14 +1,18 @@
 import { render, screen, fireEvent, act } from '@redwoodjs/testing/web'
 import writeXlsxFile from 'write-excel-file'
 import RecordsAccordion from './RecordsAccordion'
-import mixpanel from 'mixpanel-browser'
+import track from 'src/lib/analytics'
 import config from 'src/config'
 
-// Mock mixpanel
-jest.mock('mixpanel-browser', () => ({
-  init: jest.fn(),
-  track: jest.fn(),
+jest.mock('src/lib/analytics', () => ({
+  __esModule: true,
+  default: jest.fn(),
 }))
+
+// Ensure correct setup for the mock function
+const trackMock = jest.fn()
+trackMock.mockResolvedValue({})
+track.mockImplementation(trackMock)
 
 jest.mock('write-excel-file', () => jest.fn())
 
@@ -58,15 +62,6 @@ describe('RecordsAccordion component', () => {
     jest.clearAllMocks()
   })
 
-  it('initializes mixpanel with correct configuration', async () => {
-    render(<RecordsAccordion records={records} />)
-
-    expect(mixpanel.init).toHaveBeenCalledWith(config.mixPanelTrackingCode, {
-      debug: true,
-      persistence: 'localStorage',
-    })
-  })
-
   it('renders accordion items correctly', async () => {
     render(<RecordsAccordion records={records} />)
 
@@ -89,6 +84,7 @@ describe('RecordsAccordion component', () => {
     })
 
     expect(writeXlsxFile).toHaveBeenCalledTimes(1)
-    expect(mixpanel.track).toHaveBeenCalledWith('Downloaded')
+    expect(trackMock).toHaveBeenCalledTimes(1)
+    expect(trackMock).toHaveBeenCalledWith({ event: 'Downloaded' })
   })
 })

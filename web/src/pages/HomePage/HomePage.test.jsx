@@ -1,8 +1,7 @@
 import { render, fireEvent, waitFor } from '@redwoodjs/testing/web'
 import HomePage from './HomePage'
 import { navigate, routes } from '@redwoodjs/router'
-import mixpanel from 'mixpanel-browser'
-import config from 'src/config'
+import track from 'src/lib/analytics'
 
 jest.mock('@redwoodjs/router', () => ({
   ...jest.requireActual('@redwoodjs/router'), // Use actual implementation for other functions
@@ -12,10 +11,15 @@ jest.mock('@redwoodjs/router', () => ({
   },
 }))
 
-jest.mock('mixpanel-browser', () => ({
-  init: jest.fn(),
-  track: jest.fn(),
+jest.mock('src/lib/analytics', () => ({
+  __esModule: true,
+  default: jest.fn(),
 }))
+
+// Ensure correct setup for the mock function
+const trackMock = jest.fn()
+trackMock.mockResolvedValue({})
+track.mockImplementation(trackMock)
 
 describe('HomePage component', () => {
   beforeEach(() => {
@@ -26,6 +30,8 @@ describe('HomePage component', () => {
     const { getByText } = render(<HomePage />)
     expect(getByText('All Trash Data')).toBeInTheDocument()
     expect(getByText('Submit New Cleanup Data')).toBeInTheDocument()
+    expect(trackMock).toHaveBeenCalledTimes(1)
+    expect(trackMock).toHaveBeenCalledWith({ event: 'Home Page View' })
   })
 
   it('tracks "New Record" on button click', async () => {
@@ -34,17 +40,9 @@ describe('HomePage component', () => {
     fireEvent.click(submitButton)
 
     await waitFor(() => {
-      expect(mixpanel.track).toHaveBeenCalledWith('New Record')
+      expect(trackMock).toHaveBeenCalledTimes(2)
+      expect(trackMock).toHaveBeenCalledWith({ event: 'New Record' })
       expect(navigate).toHaveBeenCalledWith(routes.addData())
-    })
-  })
-
-  it('initializes mixpanel with correct configuration', () => {
-    render(<HomePage />)
-    expect(mixpanel.init).toHaveBeenCalledWith(config.mixPanelTrackingCode, {
-      debug: true,
-      track_pageview: '/',
-      persistence: 'localStorage',
     })
   })
 })
