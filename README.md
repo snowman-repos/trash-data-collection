@@ -1,3 +1,9 @@
+# Trash Data Collection App
+
+An **easy** way for **any** volunteer cleanup group – **any** kind of cleanup, **anywhere** in the world – to record consistent data about the trash they collect.
+
+Use the [free demo app](https://demo.trashdata.app/) or spin up your own! It's open-source and released for free under the [Creative Commons Attribution-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).
+
 # Pre-requisites
 
 ## Node & Yarn</h4>
